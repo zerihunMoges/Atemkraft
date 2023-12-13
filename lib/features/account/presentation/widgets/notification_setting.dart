@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class NotificationSetting extends StatefulWidget {
-  NotificationSetting({super.key});
+  const NotificationSetting({super.key});
 
   @override
   State<NotificationSetting> createState() => _NotificationSettingState();
@@ -34,7 +34,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
       SizedBox(
         height: 1.h,
       ),
-      Divider(),
+      const Divider(),
       SizedBox(
         height: 1.h,
       ),

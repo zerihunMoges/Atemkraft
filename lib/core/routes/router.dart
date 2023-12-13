@@ -1,7 +1,10 @@
+import 'package:atemkraft/features/account/presentation/screens/about_screen.dart';
+import 'package:atemkraft/features/account/presentation/screens/account_information_screen.dart';
 import 'package:atemkraft/features/account/presentation/screens/my_account.dart';
 import 'package:atemkraft/features/account/presentation/screens/notifications.dart';
 import 'package:atemkraft/features/account/presentation/screens/settings.dart';
 import 'package:atemkraft/features/home/presentation/screens/home_screen.dart';
+import 'package:atemkraft/features/home/presentation/screens/my_training_plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../theme/app_theme.dart';
@@ -19,16 +22,28 @@ class AppRouter extends StatelessWidget {
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
+          path: AppRoutes.myTrainingPlan,
+          builder: (context, state) => const MyTrainingPlanScreen(),
+        ),
+        GoRoute(
           path: AppRoutes.notifications,
-          builder: (context, state) => const Notifications(),
+          builder: (context, state) => const NotificationsScreen(),
         ),
         GoRoute(
           path: AppRoutes.myaccount,
-          builder: (context, state) => MyAccount(),
+          builder: (context, state) => const MyAccountScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.accountInformation,
+          builder: (context, state) => const AccountInformationScreen(),
         ),
         GoRoute(
           path: AppRoutes.settings,
-          builder: (context, state) => Settings(),
+          builder: (context, state) => const SettingScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.aboutOwner,
+          builder: (context, state) => const AboutScreen(),
         ),
       ],
     );

@@ -6,18 +6,20 @@ import 'package:atemkraft/features/account/presentation/widgets/other_settings.d
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class Settings extends StatelessWidget {
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Settings'),
+      appBar: const CustomAppBar(title: 'Settings'),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(edgeInset),
+        padding: const EdgeInsets.all(edgeInset),
         child: Column(
           children: [
             AccountSettings(),
             SizedBox(height: 5.h),
-            NotificationSetting(),
+            const NotificationSetting(),
             SizedBox(height: 5.h),
             OtherSettings()
           ],

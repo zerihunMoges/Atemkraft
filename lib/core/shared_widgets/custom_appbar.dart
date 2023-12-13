@@ -1,5 +1,4 @@
 import 'package:atemkraft/core/shared_widgets/notification_icon.dart';
-import 'package:atemkraft/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       title: Text(title, style: Theme.of(context).textTheme.labelLarge),
       centerTitle: true,
-      actions: [
+      actions: const [
         NotificationIcon(),
         SizedBox(
           width: 20,

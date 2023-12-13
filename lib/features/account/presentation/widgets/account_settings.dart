@@ -36,7 +36,7 @@ class AccountSettings extends StatelessWidget {
       SizedBox(
         height: 1.h,
       ),
-      Divider(),
+      const Divider(),
       SizedBox(
         height: 2.h,
       ),

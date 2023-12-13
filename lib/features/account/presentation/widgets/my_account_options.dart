@@ -16,6 +16,8 @@ class MyAccountOptions extends StatelessWidget {
     [personalHistoryIcon, 'Personal History', AppRoutes.accountInformation]
   ];
 
+  MyAccountOptions({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

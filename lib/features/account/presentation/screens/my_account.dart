@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class MyAccount extends StatelessWidget {
+class MyAccountScreen extends StatelessWidget {
+  const MyAccountScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'My Account'),
+      appBar: const CustomAppBar(title: 'My Account'),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(edgeInset),
+        padding: const EdgeInsets.all(edgeInset),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           SizedBox(
             height: 5.h,
