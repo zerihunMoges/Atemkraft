@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton(
       {required this.buttonText,
-      required this.borderRadius,
+       this.borderRadius = 10,
       this.borderOnly = false,
       this.height,
       this.oneSideOff = false,
@@ -31,10 +31,17 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: width ?? 30.w,
+        width: width ?? 75.w,
         height: height ?? 6.h,
         padding: EdgeInsets.symmetric(horizontal: (4).w),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2,
+                offset: const Offset(0, 2),
+                color: black.withOpacity(0.4),
+                spreadRadius: 1)
+          ],
           borderRadius: oneSideOff
               ? BorderRadius.only(
                   topLeft: Radius.zero,
@@ -61,6 +68,7 @@ class CustomButton extends StatelessWidget {
                   )),
         ),
       ),
+
     );
   }
 }

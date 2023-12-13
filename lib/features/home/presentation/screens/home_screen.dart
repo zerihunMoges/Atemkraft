@@ -6,6 +6,8 @@ import 'package:atemkraft/features/home/presentation/widgets/my_training_plan_ca
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../core/shared_widgets/bottom_nav_bar.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -34,6 +36,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const CustomBottomNavBar(activeIndex: 0,)
     );
   }
 }

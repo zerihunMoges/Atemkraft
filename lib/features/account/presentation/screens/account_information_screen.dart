@@ -1,5 +1,6 @@
 import 'package:atemkraft/core/shared_widgets/custom_appbar.dart';
 import 'package:atemkraft/core/shared_widgets/custom_button.dart';
+import 'package:atemkraft/core/theme/colors.dart';
 import 'package:atemkraft/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -23,15 +24,15 @@ class AccountInformationScreen extends StatelessWidget {
           SizedBox(
             height: 5.h,
           ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomButton(
-                    borderOnly: true, buttonText: 'Edit', borderRadius: 10),
-                Spacer(),
-                CustomButton(buttonText: 'Save', borderRadius: 10),
+                CustomButton(borderOnly: true, buttonText: 'Edit', width: 35.w,borderColor: primaryColor),
+                const Spacer(),
+                CustomButton(buttonText: 'Save', width: 35.w,onPressed: (){}),
+                
               ],
             ),
           )
