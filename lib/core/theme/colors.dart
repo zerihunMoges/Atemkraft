@@ -6,4 +6,4 @@ const Color primaryBackground = Color(0xFFEFEDED);
 
 const Color black = Color(0xFF000000);
 const Color white = Color(0xFFFFFFFF);
-const Color grey = Color(0xFF737070);
+const Color greyTextColor = Color(0xFFEFEDED);

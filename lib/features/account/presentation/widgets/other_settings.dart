@@ -11,7 +11,7 @@ class OtherSettings extends StatelessWidget {
     ['Language', AppRoutes.language],
     ['Privacy', AppRoutes.privacy],
     ['Help & Support', AppRoutes.help],
-    ['About Owner', AppRoutes.aboutOwner]
+    ['About Owner', '${AppRoutes.myaccount}/${AppRoutes.aboutOwner}']
   ];
 
   OtherSettings({super.key});

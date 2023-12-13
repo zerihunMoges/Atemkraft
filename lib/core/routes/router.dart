@@ -3,10 +3,14 @@ import 'package:atemkraft/features/account/presentation/screens/account_informat
 import 'package:atemkraft/features/account/presentation/screens/my_account.dart';
 import 'package:atemkraft/features/account/presentation/screens/notifications.dart';
 import 'package:atemkraft/features/account/presentation/screens/settings.dart';
+import 'package:atemkraft/features/auth/presentation/screens/login_screen.dart';
 import 'package:atemkraft/features/home/presentation/screens/home_screen.dart';
 import 'package:atemkraft/features/home/presentation/screens/my_training_plan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/auth/presentation/screens/sign_up_screen.dart';
+import '../../features/onboarding/screens/onboarding_screen.dart';
+import '../../features/splash/screens/splash_screen.dart';
 import '../theme/app_theme.dart';
 import 'app_routes.dart';
 
@@ -15,7 +19,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({super.key}) {
     _router = GoRouter(
-      initialLocation: AppRoutes.home,
+      initialLocation: AppRoutes.login,
       routes: <GoRoute>[
         GoRoute(
           path: AppRoutes.home,
@@ -32,18 +36,38 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: AppRoutes.myaccount,
           builder: (context, state) => const MyAccountScreen(),
+          routes: [
+            GoRoute(
+                path: AppRoutes.accountInformation,
+                builder: (context, state) => const AccountInformationScreen(),
+              ),
+              GoRoute(
+                path: AppRoutes.aboutOwner,
+                builder: (context, state) => const AboutScreen(),
+              ),
+          ]
         ),
-        GoRoute(
-          path: AppRoutes.accountInformation,
-          builder: (context, state) => const AccountInformationScreen(),
-        ),
+        
         GoRoute(
           path: AppRoutes.settings,
           builder: (context, state) => const SettingScreen(),
         ),
+        
         GoRoute(
-          path: AppRoutes.aboutOwner,
-          builder: (context, state) => const AboutScreen(),
+          path: AppRoutes.splash,
+          builder: (context, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.onboarding,
+          builder: (context, state) => const OnboardingScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.login,
+          builder: (context, state) =>  LoginScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.signUp,
+          builder: (context, state) => SignUpScreen(),
         ),
       ],
     );
