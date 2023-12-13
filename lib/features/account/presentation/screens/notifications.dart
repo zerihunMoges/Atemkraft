@@ -3,15 +3,15 @@ import 'package:atemkraft/core/utils/constants.dart';
 import 'package:atemkraft/features/account/presentation/widgets/notifcation_card.dart';
 import 'package:flutter/material.dart';
 
-class Notifications extends StatelessWidget {
-  const Notifications({super.key});
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Notification'),
+      appBar: const CustomAppBar(title: 'Notification'),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(edgeInset),
+        padding: const EdgeInsets.all(edgeInset),
         child: Column(
           children: [
             NotificationCard(

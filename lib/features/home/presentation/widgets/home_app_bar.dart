@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeAppBar extends StatelessWidget {
+  const HomeAppBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,7 +25,7 @@ class HomeAppBar extends StatelessWidget {
           ],
         ),
         InkWell(
-          child: NotificationIcon(),
+          child: const NotificationIcon(),
           onTap: () => context.push(AppRoutes.notifications),
         )
       ],

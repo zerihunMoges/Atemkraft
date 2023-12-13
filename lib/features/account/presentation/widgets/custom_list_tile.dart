@@ -20,12 +20,12 @@ class CustomListTile extends StatelessWidget {
               width: 3.w,
             ),
           Text(
-            '$title',
+            title,
             style:
                 Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
           ),
-          Expanded(child: SizedBox()),
-          Icon(
+          const Expanded(child: SizedBox()),
+          const Icon(
             Icons.arrow_forward_ios_rounded,
             size: 18,
           )
