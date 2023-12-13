@@ -11,7 +11,7 @@ class AppRouter extends StatelessWidget {
 
   AppRouter({super.key}) {
     _router = GoRouter(
-      initialLocation: AppRoutes.settings,
+      initialLocation: AppRoutes.home,
       routes: <GoRoute>[
         GoRoute(
           path: AppRoutes.home,
