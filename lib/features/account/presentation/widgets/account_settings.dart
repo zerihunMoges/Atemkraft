@@ -8,9 +8,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AccountSettings extends StatelessWidget {
   final List<List> settings = [
-    ['Edit Profile', AppRoutes.accountInformation],
-    ['Change Password', AppRoutes.settings],
-    ['Delete Account', AppRoutes.settings]
+    ['Edit Profile', AppRoutes.editProfile],
+    ['Change Password', AppRoutes.changePassword],
+    ['Delete Account', AppRoutes.deleteAccount]
   ];
 
   AccountSettings({super.key});
