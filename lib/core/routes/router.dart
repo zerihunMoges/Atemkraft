@@ -1,3 +1,5 @@
+import 'package:atemkraft/features/account/presentation/screens/my_account.dart';
+import 'package:atemkraft/features/account/presentation/screens/settings.dart';
 import 'package:atemkraft/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +16,14 @@ class AppRouter extends StatelessWidget {
         GoRoute(
           path: AppRoutes.home,
           builder: (context, state) => const HomeScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.myaccount,
+          builder: (context, state) => MyAccount(),
+        ),
+        GoRoute(
+          path: AppRoutes.settings,
+          builder: (context, state) => Settings(),
         ),
       ],
     );
