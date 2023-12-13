@@ -24,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
         ),
         InkWell(
           child: NotificationIcon(),
-          onTap: () => context.push(AppRoutes.myaccount),
+          onTap: () => context.push(AppRoutes.notifications),
         )
       ],
     );

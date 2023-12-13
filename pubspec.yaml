@@ -37,6 +37,7 @@ dependencies:
   go_router: ^12.1.1
   flutter_svg: ^2.0.9
   responsive_sizer: ^3.2.0
+  timeago: ^3.1.0
 
 dev_dependencies:
   flutter_test:

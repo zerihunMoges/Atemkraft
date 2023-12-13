@@ -1,5 +1,4 @@
 import 'package:atemkraft/core/routes/app_routes.dart';
-import 'package:atemkraft/core/theme/colors.dart';
 import 'package:atemkraft/core/utils/images.dart';
 import 'package:atemkraft/features/account/presentation/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';

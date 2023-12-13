@@ -1,10 +1,7 @@
-import 'package:atemkraft/core/routes/app_routes.dart';
 import 'package:atemkraft/core/theme/colors.dart';
 import 'package:atemkraft/core/utils/images.dart';
-import 'package:atemkraft/features/account/presentation/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class NotificationSetting extends StatefulWidget {
