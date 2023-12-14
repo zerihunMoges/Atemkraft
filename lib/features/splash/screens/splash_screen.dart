@@ -1,14 +1,31 @@
+import 'package:atemkraft/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/shared_widgets/logo.dart';
 import '../../../core/theme/colors.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+     Future.delayed(const Duration(seconds: 3), () {
+      context.go(AppRoutes.onboarding);
+    });
     return Scaffold(
       body: Container(
         height: MediaQuery.sizeOf(context).height,

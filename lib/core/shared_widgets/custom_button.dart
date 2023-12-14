@@ -36,11 +36,11 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: (4).w),
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
-                blurRadius: 2,
-                offset: const Offset(0, 2),
-                color: black.withOpacity(0.4),
-                spreadRadius: 1)
+            // BoxShadow(
+            //     blurRadius: 2,
+            //     offset: const Offset(0, 2),
+            //     color: black.withOpacity(0.4),
+            //     spreadRadius: 1)
           ],
           borderRadius: oneSideOff
               ? BorderRadius.only(

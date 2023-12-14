@@ -63,7 +63,7 @@ class CommonCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(
-            color: primaryLightColor,
+            color: Color(0xFFD1DCE8),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10.0),
               bottomRight: Radius.circular(10.0),

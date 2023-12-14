@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(edgeInset),
             child: Column(
               children: [
@@ -28,12 +28,15 @@ class HomeScreen extends StatelessWidget {
                   height: 5.h,
                 ),
                 const BOLT(),
+                SizedBox(
+                  height: 10.h,
+                ),
               ],
             ),
           ),
-        ),
-        bottomNavigationBar: const CustomBottomNavBar(
-          activeIndex: 0,
-        ));
+          bottomNavigationBar: const CustomBottomNavBar(
+            activeIndex: 0,
+          )),
+    );
   }
 }

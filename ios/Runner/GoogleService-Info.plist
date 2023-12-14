@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDR4XumsTQ34Uw2XrXr06bwjv4oobqKmDw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>381906456564</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.atemkraft</string>
+	<key>PROJECT_ID</key>
+	<string>atemkraft-ec61b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>atemkraft-ec61b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:381906456564:ios:6226b29b94bd24ff7f33a1</string>
+</dict>
+</plist>
