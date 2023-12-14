@@ -1,16 +1,39 @@
+import 'dart:async';
+
 import 'package:atemkraft/core/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class BOLTCounter extends StatefulWidget {
-  const BOLTCounter({super.key});
+  final Function(int seconds, DateTime timestamp) onTimeRecorded;
+  const BOLTCounter({super.key, required this.onTimeRecorded});
 
   @override
   State<BOLTCounter> createState() => _BOLTCounterState();
 }
 
 class _BOLTCounterState extends State<BOLTCounter> {
-  final sec = 25;
+  int sec = 0;
+  final Stopwatch stopwatch = Stopwatch();
+
+  void handleAlarmClick() {
+    if (stopwatch.isRunning) {
+      stopwatch.stop();
+      widget.onTimeRecorded(stopwatch.elapsed.inSeconds, DateTime.now());
+      stopwatch.reset();
+    } else {
+      stopwatch.start();
+      Timer.periodic(const Duration(seconds: 1), (Timer t) {
+        if (stopwatch.isRunning) {
+          setState(() {
+            sec = stopwatch.elapsed.inSeconds;
+          });
+        } else {
+          t.cancel();
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +48,20 @@ class _BOLTCounterState extends State<BOLTCounter> {
                 width: 40.w,
               ),
             ),
-            const Positioned(
-                top: 0,
-                right: 0,
-                child: Icon(
+            Positioned(
+              top: -3,
+              right: -3,
+              child: IconButton(
+                icon: Icon(
                   Icons.alarm_add_rounded,
                   size: 50,
-                  color: Color(0xFF01ABE3),
-                ))
+                  color: !stopwatch.isRunning
+                      ? const Color(0xFF01ABE3)
+                      : Colors.red[400],
+                ),
+                onPressed: handleAlarmClick,
+              ),
+            )
           ],
         ),
         SizedBox(
@@ -43,7 +72,7 @@ class _BOLTCounterState extends State<BOLTCounter> {
           style: Theme.of(context)
               .textTheme
               .bodyLarge!
-              .copyWith(fontWeight: FontWeight.w300, fontSize: 24),
+              .copyWith(fontWeight: FontWeight.w400, fontSize: 24),
         )
       ],
     );

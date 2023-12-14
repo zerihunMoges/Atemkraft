@@ -23,6 +23,7 @@ class CommonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
             padding:
@@ -68,7 +69,10 @@ class CommonCard extends StatelessWidget {
               bottomRight: Radius.circular(10.0),
             ),
           ),
-          child: body,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [body ?? Container()],
+          ),
         )
       ],
     );

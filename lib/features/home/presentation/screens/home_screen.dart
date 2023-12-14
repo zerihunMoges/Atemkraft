@@ -14,29 +14,26 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(edgeInset),
-          child: Column(
-            children: [
-              const HomeAppBar(),
-              SizedBox(
-                height: 5.h,
-              ),
-              const MyTrainingPlanCard(),
-              SizedBox(
-                height: 5.h,
-              ),
-              const BOLT(),
-              SizedBox(
-                height: 10.h,
-              ),
-              const BOLTCounter()
-            ],
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(edgeInset),
+            child: Column(
+              children: [
+                const HomeAppBar(),
+                SizedBox(
+                  height: 5.h,
+                ),
+                const MyTrainingPlanCard(),
+                SizedBox(
+                  height: 5.h,
+                ),
+                const BOLT(),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: const CustomBottomNavBar(activeIndex: 0,)
-    );
+        bottomNavigationBar: const CustomBottomNavBar(
+          activeIndex: 0,
+        ));
   }
 }
