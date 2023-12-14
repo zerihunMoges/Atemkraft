@@ -1,19 +1,34 @@
+import 'package:atemkraft/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'core/injections/injections.dart';
+import 'firebase_options.dart';
 
 import 'core/routes/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  initializeDateFormatting().then((_) => runApp(
-        ResponsiveSizer(
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  injectionInit();
+  initializeDateFormatting().then((_) => 
+  runApp(
+    MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create: (_) => getIt<AuthBloc>(),
+          )
+        ],
+        child: ResponsiveSizer(
           builder: (context, orientation, deviceType) {
             return const MyApp();
           },
-        ),
-      ));
+        )),
+  ));
 }
 
 class MyApp extends StatelessWidget {

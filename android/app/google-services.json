@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "381906456564",
+    "project_id": "atemkraft-ec61b",
+    "storage_bucket": "atemkraft-ec61b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381906456564:android:222f7f6b66ff03617f33a1",
+        "android_client_info": {
+          "package_name": "com.example.atemkraft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAhiL7CR5Ykhx0kU7HjcP_zi4nx9FrcWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

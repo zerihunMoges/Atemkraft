@@ -27,11 +27,11 @@ class CustomButtonTwo extends StatelessWidget {
           height: height ?? 6.h,
           decoration: BoxDecoration(
             boxShadow: [
-              BoxShadow(
-                  blurRadius: 2,
-                  offset: const Offset(0, 1),
-                  color: black.withOpacity(0.2),
-                  spreadRadius: 2)
+              // BoxShadow(
+              //     blurRadius: 2,
+              //     offset: const Offset(0, 1),
+              //     color: black.withOpacity(0.2),
+              //     spreadRadius: 2)
             ],
             borderRadius: BorderRadius.circular(radius),
             color: primaryLightColor,

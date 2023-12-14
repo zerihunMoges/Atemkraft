@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../core/routes/app_routes.dart';
-import '../../../core/shared_widgets/custom_button.dart';
 import '../../../core/shared_widgets/custom_button_two.dart';
 import '../../../core/theme/colors.dart';
 import '../widgets/onboarding_item.dart';
@@ -122,13 +121,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  Text(
-                    'Überspringen',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: greyTextColor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  // Text(
+                  //   'Überspringen',
+                  //   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  //       color: greyTextColor,
+                  //       fontSize: 22,
+                  //       fontWeight: FontWeight.w400),
+                  // ),
                 ],
               ),
             ),
