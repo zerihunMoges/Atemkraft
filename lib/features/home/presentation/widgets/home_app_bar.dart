@@ -1,7 +1,4 @@
-import 'package:atemkraft/core/routes/app_routes.dart';
-import 'package:atemkraft/core/shared_widgets/notification_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/utils/firebase.dart';
 

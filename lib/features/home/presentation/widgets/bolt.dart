@@ -1,7 +1,14 @@
-import 'package:atemkraft/core/theme/colors.dart';
+import 'package:atemkraft/core/shared_widgets/error_snake_bar.dart';
+import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
+import 'package:atemkraft/core/utils/firebase.dart';
+import 'package:atemkraft/features/home/domain/entity/bolt_entity.dart';
+import 'package:atemkraft/features/home/presentation/bloc/bolt_bloc.dart';
+import 'package:atemkraft/features/home/presentation/bloc/bolt_bloc_events.dart';
+import 'package:atemkraft/features/home/presentation/bloc/bolt_bloc_states.dart';
 import 'package:atemkraft/features/home/presentation/widgets/bolt_counter.dart';
 import 'package:atemkraft/features/home/presentation/widgets/bolt_values.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -15,14 +22,11 @@ class BOLT extends StatefulWidget {
 }
 
 class _BOLTState extends State<BOLT> {
-  List<Map<String, dynamic>> dataList = [];
   TextEditingController manualInputController = TextEditingController();
-
-  void recordTime(int seconds, DateTime timestamp) {
-    setState(() => dataList.add({
-          'seconds': seconds,
-          'timestamp': timestamp,
-        }));
+  @override
+  void initState() {
+    BlocProvider.of<BoltBloc>(context).add(GetBoltsEvent(user: getUserId()));
+    super.initState();
   }
 
   @override
@@ -60,15 +64,11 @@ class _BOLTState extends State<BOLT> {
         SizedBox(
           height: 1.h,
         ),
-        BOLTValues(
-          boltValues: dataList,
-        ),
+        const BOLTValues(),
         SizedBox(
-          height: 10.h,
+          height: 5.h,
         ),
-        BOLTCounter(
-          onTimeRecorded: recordTime,
-        )
+        const BOLTCounter()
       ],
     );
   }
@@ -100,20 +100,32 @@ class _BOLTState extends State<BOLT> {
                     child: Text('Cancel',
                         style: Theme.of(context).textTheme.labelMedium),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      final String value = manualInputController.text;
-                      final DateTime timestamp = DateTime.now();
+                  BlocConsumer<BoltBloc, BoltBlocStates>(
+                      builder: (context, state) {
+                    return TextButton(
+                      onPressed: state is! AddBoltLoading
+                          ? () {
+                              final String value = manualInputController.text;
 
-                      if (value != '') {
-                        recordTime(int.parse(value), timestamp);
-                      }
-
+                              if (value != '') {
+                                BlocProvider.of<BoltBloc>(context)
+                                    .add(AddBoltEvent(
+                                  payload:
+                                      BoltPayload(duration: int.parse(value)),
+                                ));
+                              }
+                            }
+                          : () {},
+                      child: Text('Enter',
+                          style: Theme.of(context).textTheme.labelMedium),
+                    );
+                  }, listener: (context, state) {
+                    if (state is AddBoltSuccess) {
                       context.pop();
-                    },
-                    child: Text('Enter',
-                        style: Theme.of(context).textTheme.labelMedium),
-                  ),
+                    } else if (state is AddBoltFailure) {
+                      showCustomMessage(context, state.errorMessage);
+                    }
+                  }),
                 ],
               ),
             ],
