@@ -116,7 +116,7 @@ class SignUpScreen extends StatelessWidget {
                         isError: false);
 
                     context.go(AppRoutes.login);
-                  } else if (state is LoginFailure) {
+                  } else if (state is SignUpFailure) {
                     showCustomMessage(context, state.errorMessage);
                   }
                 }),

@@ -11,21 +11,31 @@ import '../../../../core/shared_widgets/error_snake_bar.dart';
 import '../../../../core/shared_widgets/loading_animation.dart';
 import '../../../../core/shared_widgets/logo.dart';
 import '../../../../core/theme/colors.dart';
+import '../../../../core/utils/firebase.dart';
 import '../../../../core/utils/validators.dart';
 import '../../domain/entity/user_entity.dart';
 import '../widgets/forgot_password_popup.dart';
 import '../widgets/or_divider.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class LoginScreen extends StatefulWidget {
 
   LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController usernameController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       body: Container(
         padding: const EdgeInsets.all(35.0),
         color: white,
@@ -111,9 +121,14 @@ class LoginScreen extends StatelessWidget {
                           ));
                         }
                       });
-                }, listener: (context, state) {
+                }, listener: (context, state) async {
                   if (state is LoginSuccess) {
-                    context.go(AppRoutes.home);
+                    final isAdmin = await isUserAdmin();
+                    if (!isAdmin) {
+                      goToHome();
+                    } else {
+                      goToAdmin();
+                    }
                   } else if (state is LoginFailure) {
                     showCustomMessage(context, state.errorMessage);
                   }
@@ -156,5 +171,13 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  goToHome() {
+    context.go(AppRoutes.home);
+  }
+
+  goToAdmin() {
+    context.go(AppRoutes.adminHome);
   }
 }

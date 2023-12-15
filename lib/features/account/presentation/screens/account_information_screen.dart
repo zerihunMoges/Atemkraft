@@ -1,7 +1,6 @@
 import 'package:atemkraft/core/shared_widgets/custom_appbar.dart';
 import 'package:atemkraft/core/shared_widgets/custom_button.dart';
 import 'package:atemkraft/core/theme/colors.dart';
-import 'package:atemkraft/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

@@ -1,3 +1,4 @@
+import 'package:atemkraft/features/admin/presentation/bloc/admin_bloc.dart';
 import 'package:atemkraft/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -15,20 +16,22 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   injectionInit();
-  initializeDateFormatting().then((_) => 
-  runApp(
-    MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (_) => getIt<AuthBloc>(),
-          )
-        ],
-        child: ResponsiveSizer(
-          builder: (context, orientation, deviceType) {
-            return const MyApp();
-          },
-        )),
-  ));
+  initializeDateFormatting().then((_) => runApp(
+        MultiBlocProvider(
+            providers: [
+              BlocProvider<AuthBloc>(
+                create: (_) => getIt<AuthBloc>(),
+              ),
+              BlocProvider<AdminBloc>(
+                create: (_) => getIt<AdminBloc>(),
+              )
+            ],
+            child: ResponsiveSizer(
+              builder: (context, orientation, deviceType) {
+                return const MyApp();
+              },
+            )),
+      ));
 }
 
 class MyApp extends StatelessWidget {
