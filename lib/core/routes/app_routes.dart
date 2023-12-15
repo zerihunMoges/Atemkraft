@@ -14,6 +14,9 @@ class AppRoutes {
   static const String language = '/language';
   static const String privacy = '/privacy';
   static const String help = '/help';
-  static const String login = '/login'; 
+  static const String login = '/login';
   static const String signUp = '/signUp';
+
+  static const String adminHome = '/adminHome';
+  static const String adminUserPlan = '/userPlan';
 }

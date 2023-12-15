@@ -1,7 +1,9 @@
 import 'package:atemkraft/core/routes/app_routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../core/shared_widgets/logo.dart';
 import '../../../core/theme/colors.dart';
@@ -15,10 +17,36 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final _storage = const FlutterSecureStorage();
+  late bool _isFirstTime;
+  late GoRouter _router;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
+    _router = GoRouter.of(context);
+    checkFirstTime();
+  }
+
+  void checkFirstTime() async {
+    _isFirstTime = (await _storage.read(key: 'isFirstTime')) == null;
+
+    if (_isFirstTime) {
+      Future.delayed(const Duration(seconds: 3), () async {
+        await _storage.write(key: 'isFirstTime', value: 'false');
+        _router.go(AppRoutes.onboarding);
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 3), () {
+        if (FirebaseAuth.instance.currentUser != null){
+          _router.go(AppRoutes.home);
+        }
+        else{
+          _router.go(AppRoutes.login);
+        }
+        
+      });
+    }
   }
 
   @override

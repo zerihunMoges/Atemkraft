@@ -2,45 +2,49 @@ import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../../core/shared_widgets/bottom_nav_bar.dart';
-import '../../../../core/shared_widgets/custom_appbar.dart';
-import '../../../../core/shared_widgets/custom_button.dart';
 import '../../../../core/shared_widgets/error_snake_bar.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/utils/firebase.dart';
-import '../../../admin/presentation/bloc/admin_bloc.dart';
 import '../../../home/presentation/widgets/common_card.dart';
-import '../widgets/home_app_bar.dart';
+import '../bloc/admin_bloc.dart';
+import '../widgets/add_plan_dialog.dart';
 
-class MyTrainingPlanScreen extends StatefulWidget {
-  const MyTrainingPlanScreen({super.key});
+class UserPlansScreen extends StatefulWidget {
+  final String uId;
+  final String email;
+  const UserPlansScreen({super.key, required this.uId, required this.email});
 
   @override
-  State<MyTrainingPlanScreen> createState() => _MyTrainingPlanScreenState();
+  State<UserPlansScreen> createState() => _UserPlansScreenState();
 }
 
-class _MyTrainingPlanScreenState extends State<MyTrainingPlanScreen> {
+class _UserPlansScreenState extends State<UserPlansScreen> {
   final planController = TextEditingController();
   @override
   initState() {
     BlocProvider.of<AdminBloc>(context)
-        .add(FetchUserPlansEvent(uId: getUserId()));
+        .add(FetchUserPlansEvent(uId: widget.uId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: white,
+          leading: BackButton(onPressed: () {
+            BlocProvider.of<AdminBloc>(context).add(FetchClientsEvent());
+
+            Navigator.pop(context);
+          })),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const HomeAppBar(),
               const SizedBox(height: 20.0),
               CommonCard(
-                headingTitle: "Persönlicher Trainingsplan",
+                headingTitle: "${widget.email} - Plans",
                 body: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
@@ -107,7 +111,12 @@ class _MyTrainingPlanScreenState extends State<MyTrainingPlanScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavBar(activeIndex: 1)
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: primaryColor,
+          onPressed: () {
+            addPlanDialog(context, planController, widget.uId);
+          },
+          child: const Icon(Icons.add, color: white)),
     );
   }
 }

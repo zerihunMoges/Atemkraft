@@ -1,31 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
 String getDisplayName() {
   return FirebaseAuth.instance.currentUser!.displayName ?? 'There';
 }
 
-Future<void> addToBoltTable(int duration) async {
-  try {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      DateTime now = DateTime.now();
+String getUserId() {
+  return FirebaseAuth.instance.currentUser!.uid;
+}
 
-      await _firestore.collection('Bolt').add({
-        'user': user.uid,
-        'timestamp': now,
-        'duration': duration,
-      });
-      // Data added successfully
-    } else {
-      // User is not signed in
-    }
+Future<bool> isUserAdmin() async {
+  final DocumentReference documentReference = FirebaseFirestore.instance
+      .collection('role')
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+
+  final DocumentSnapshot documentSnapshot = await documentReference.get();
+
+  if (documentSnapshot.exists) {
+    final Map data = documentSnapshot.data() as Map;
+    final isAdmin = data['isAdmin'];
+    return isAdmin;
+  } else {
+    return false;
+  }
+}
+
+Future<void> signOutUser() async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    // Successfully logged out
   } catch (e) {
-    // Handle error if data addition fails
-    print('Error adding data to Bolt collection: $e');
+    // Handle logout failure
   }
 }
