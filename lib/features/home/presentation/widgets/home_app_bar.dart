@@ -3,6 +3,8 @@ import 'package:atemkraft/core/shared_widgets/notification_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/firebase.dart';
+
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
 
@@ -19,15 +21,15 @@ class HomeAppBar extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Text(
-              'Alexander',
+              getDisplayName(),
               style: Theme.of(context).textTheme.bodyMedium,
             )
           ],
         ),
-        InkWell(
-          child: const NotificationIcon(),
-          onTap: () => context.push(AppRoutes.notifications),
-        )
+        // InkWell(
+        //   child: const NotificationIcon(),
+        //   onTap: () => context.push(AppRoutes.notifications),
+        // )
       ],
     );
   }

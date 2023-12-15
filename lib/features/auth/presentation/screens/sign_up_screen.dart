@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -110,9 +111,13 @@ class SignUpScreen extends StatelessWidget {
                       });
                 }, listener: (context, state) {
                   if (state is SignUpSuccess) {
-                    context.go(AppRoutes.home);
+                    showCustomMessage(context,
+                        "Please verify your email and login to your account.",
+                        isError: false);
+
+                    context.go(AppRoutes.login);
                   } else if (state is LoginFailure) {
-                    showErrorMessage(context, state.errorMessage);
+                    showCustomMessage(context, state.errorMessage);
                   }
                 }),
                 SizedBox(height: 2.5.h),

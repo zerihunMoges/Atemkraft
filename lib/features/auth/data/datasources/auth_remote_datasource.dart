@@ -28,11 +28,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       // Update the user's display name with the provided full name
       await userCredential.user!.updateDisplayName(payload.fullName);
+      await userCredential.user!.sendEmailVerification();
 
       return userCredential;
     } catch (e) {
       throw FirebaseAuthException(code: 'email-already-in-use');
-
     }
   }
 
@@ -47,7 +47,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return userCredential;
     } catch (e) {
-      throw FirebaseAuthException(code: 'user-not-found' );
+      throw FirebaseAuthException(code: 'user-not-found');
     }
   }
 
@@ -55,10 +55,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<void> resetPassword(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-      // Password reset email sent successfully
     } catch (e) {
-      print("Error sending password reset email: $e");
-      throw e; // Propagate the error to the calling code if needed
+      throw FirebaseAuthException(code: 'reset-faild');
     }
   }
 }

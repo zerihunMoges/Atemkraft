@@ -1,7 +1,5 @@
 import 'package:atemkraft/core/errors/failures.dart';
 
-import 'package:atemkraft/features/auth/domain/entity/forgot_password_entity.dart';
-
 import 'package:atemkraft/features/auth/domain/entity/user_entity.dart';
 
 import 'package:dartz/dartz.dart';
@@ -22,10 +20,19 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, bool>> forgotPassword(
-      ForgotPasswordEntity forgotPasswordEntity) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> forgotPassword(String email) async {
+    if (await networkInfo.isConnected) {
+      try {
+       await authRemoteDataSource.resetPassword(email);
+        return const Right(true);
+      } catch (e) {
+        return const Left(
+            ServerFailure('Cannot reset password, Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
   }
 
   @override

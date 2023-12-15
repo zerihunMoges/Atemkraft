@@ -1,6 +1,5 @@
 import 'package:atemkraft/core/utils/constants.dart';
 import 'package:atemkraft/features/home/presentation/widgets/bolt.dart';
-import 'package:atemkraft/features/home/presentation/widgets/bolt_counter.dart';
 import 'package:atemkraft/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:atemkraft/features/home/presentation/widgets/my_training_plan_card.dart';
 import 'package:flutter/material.dart';

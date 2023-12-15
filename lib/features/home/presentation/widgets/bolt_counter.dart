@@ -4,6 +4,8 @@ import 'package:atemkraft/core/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../core/utils/firebase.dart';
+
 class BOLTCounter extends StatefulWidget {
   final Function(int seconds, DateTime timestamp) onTimeRecorded;
   const BOLTCounter({super.key, required this.onTimeRecorded});
@@ -21,6 +23,7 @@ class _BOLTCounterState extends State<BOLTCounter> {
       stopwatch.stop();
       widget.onTimeRecorded(stopwatch.elapsed.inSeconds, DateTime.now());
       stopwatch.reset();
+      saveBoltToTable();
     } else {
       stopwatch.start();
       Timer.periodic(const Duration(seconds: 1), (Timer t) {
@@ -76,5 +79,9 @@ class _BOLTCounterState extends State<BOLTCounter> {
         )
       ],
     );
+  }
+
+  saveBoltToTable() {
+    addToBoltTable(sec);
   }
 }
