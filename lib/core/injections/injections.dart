@@ -51,22 +51,24 @@ Future<void> injectionInit() async {
   getIt.registerLazySingleton(() => RemoveBoltUsecase(getIt()));
   getIt.registerLazySingleton(() => EditProfileUseCase(getIt()));
   getIt.registerLazySingleton(() => GetProfileUseCase(getIt()));
+  getIt.registerLazySingleton(() => AddBoltUsecase(getIt()));
+  getIt.registerLazySingleton(() => GetBoltsUsecase(getIt()));
 
   //! Repository
   getIt.registerLazySingleton<AuthRepository>(() =>
       AuthRepositoryImpl(networkInfo: getIt(), authRemoteDataSource: getIt()));
-  getIt.registerLazySingleton<AdminRepository>(() => AdminRepositoryImpl(
-      networkInfo: getIt(), adminRemoteDataSource: getIt()));
   getIt.registerLazySingleton<BoltRepository>(() => BoltRepositoryImpl(
         networkInfo: getIt(),
         boltRemoteDataSource: getIt(),
       ));
-
+  getIt.registerLazySingleton<AdminRepository>(() => AdminRepositoryImpl(
+      networkInfo: getIt(), adminRemoteDataSource: getIt()));
   //! Data Source
   getIt.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl());
   getIt.registerLazySingleton<AdminRemoteDataSource>(
       () => AdminDataSourceImpl());
+
   getIt.registerLazySingleton<BoltRemoteDataSource>(
       () => BoltRemoteDataSourceImpl());
   //! Common
