@@ -13,6 +13,7 @@ import '../../../../core/shared_widgets/logo.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/utils/validators.dart';
 import '../../domain/entity/user_entity.dart';
+import '../widgets/forgot_password_popup.dart';
 import '../widgets/or_divider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -83,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // Add functionality for 'Passwort vergessen'
+                      showForgotPasswordDialog(context);
                     },
                     child: Text('Passwort vergessen',
                         style: Theme.of(context)
@@ -114,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   if (state is LoginSuccess) {
                     context.go(AppRoutes.home);
                   } else if (state is LoginFailure) {
-                    showErrorMessage(context, state.errorMessage);
+                    showCustomMessage(context, state.errorMessage);
                   }
                 }),
                 SizedBox(height: 2.5.h),
@@ -156,5 +157,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
 }

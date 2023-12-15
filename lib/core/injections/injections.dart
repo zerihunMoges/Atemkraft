@@ -4,6 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../features/auth/data/datasources/auth_remote_datasource.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
+import '../../features/auth/domain/usecases/forgot_password_usecase.dart';
 import '../../features/auth/domain/usecases/login_usecase.dart';
 import '../../features/auth/domain/usecases/sign_up_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
@@ -13,11 +14,12 @@ var getIt = GetIt.instance;
 
 Future<void> injectionInit() async {
   //! Bloc
-  getIt.registerFactory(() => AuthBloc(getIt(), getIt()));
+  getIt.registerFactory(() => AuthBloc(getIt(), getIt(),getIt()));
 
   //! Usecase
   getIt.registerLazySingleton(() => LoginUseCase(getIt()));
   getIt.registerLazySingleton(() => SignUpUseCase(getIt()));
+  getIt.registerLazySingleton(() => ForgotPasswordUseCase(getIt()));
 
   //! Repository
   getIt.registerLazySingleton<AuthRepository>(() =>

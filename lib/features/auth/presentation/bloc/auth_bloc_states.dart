@@ -13,6 +13,8 @@ class LoginLoading extends AuthBlocStates {}
 
 class SignUpLoading extends AuthBlocStates {}
 
+class ForgotPasswordLoading extends AuthBlocStates {}
+
 class LoginFailure extends AuthBlocStates {
   final String errorMessage;
 
@@ -25,11 +27,19 @@ class SignUpFailure extends AuthBlocStates {
   const SignUpFailure({required this.errorMessage});
 }
 
+class ForgotPasswordFailure extends AuthBlocStates {
+  final String errorMessage;
+
+  const ForgotPasswordFailure({required this.errorMessage});
+}
+
 class LoginSuccess extends AuthBlocStates {
   final UserCredential userCredential;
 
   const LoginSuccess({required this.userCredential});
 }
+
+class ForgotPasswordSuccess extends AuthBlocStates {}
 
 class SignUpSuccess extends AuthBlocStates {
   final UserCredential userCredential;

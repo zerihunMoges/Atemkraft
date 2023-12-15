@@ -11,11 +11,16 @@ class LoginEvent extends AuthBlocEvents {
   final AuthPayload payload;
 
   const LoginEvent({required this.payload});
-
 }
 
 class SignUpEvent extends AuthBlocEvents {
   final AuthPayload payload;
 
   const SignUpEvent({required this.payload});
+}
+
+class ForgotPasswordEvent extends AuthBlocEvents {
+  final String email;
+
+  const ForgotPasswordEvent({required this.email});
 }

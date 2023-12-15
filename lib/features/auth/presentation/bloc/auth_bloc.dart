@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/errors/failures.dart';
+import '../../domain/usecases/forgot_password_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 
 part 'auth_bloc_events.dart';
@@ -15,10 +16,13 @@ part 'auth_bloc_states.dart';
 class AuthBloc extends Bloc<AuthBlocEvents, AuthBlocStates> {
   LoginUseCase loginUseCase;
   SignUpUseCase signUpUseCase;
+  ForgotPasswordUseCase forgotPasswordUseCase;
 
-  AuthBloc(this.loginUseCase, this.signUpUseCase) : super(AuthBlocInitial()) {
+  AuthBloc(this.loginUseCase, this.signUpUseCase, this.forgotPasswordUseCase)
+      : super(AuthBlocInitial()) {
     on<LoginEvent>(_onLogin);
     on<SignUpEvent>(_onSignUp);
+    on<ForgotPasswordEvent>(_onForgotPassword);
   }
   _onLogin(LoginEvent event, Emitter<AuthBlocStates> emit) async {
     emit(LoginLoading());
@@ -44,5 +48,17 @@ class AuthBloc extends Bloc<AuthBlocEvents, AuthBlocStates> {
             emit(SignUpFailure(errorMessage: failure.errorMessage)),
         (UserCredential success) =>
             emit(SignUpSuccess(userCredential: success)));
+  }
+
+  _onForgotPassword(
+      ForgotPasswordEvent event, Emitter<AuthBlocStates> emit) async {
+    emit(ForgotPasswordLoading());
+
+    Either<Failure, bool> response = await forgotPasswordUseCase(event.email);
+
+    response.fold(
+        (Failure failure) =>
+            emit(ForgotPasswordFailure(errorMessage: failure.errorMessage)),
+        (bool success) => emit(ForgotPasswordSuccess()));
   }
 }
