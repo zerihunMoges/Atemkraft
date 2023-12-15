@@ -18,8 +18,8 @@ class SettingScreen extends StatelessWidget {
         child: Column(
           children: [
             AccountSettings(),
-            SizedBox(height: 5.h),
-            const NotificationSetting(),
+            // SizedBox(height: 5.h),
+            // const NotificationSetting(),
             SizedBox(height: 5.h),
             OtherSettings()
           ],

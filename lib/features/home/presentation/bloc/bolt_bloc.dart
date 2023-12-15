@@ -3,6 +3,7 @@ import 'package:atemkraft/core/utils/firebase.dart';
 import 'package:atemkraft/features/home/domain/entity/bolt_entity.dart';
 import 'package:atemkraft/features/home/domain/usecase/add_bolt_usecase.dart';
 import 'package:atemkraft/features/home/domain/usecase/get_bolts_usecase.dart';
+import 'package:atemkraft/features/home/domain/usecase/remove_bolt_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,10 +13,13 @@ import 'bolt_bloc_states.dart';
 class BoltBloc extends Bloc<BoltBlocEvents, BoltBlocStates> {
   AddBoltUsecase addBoltUsecase;
   GetBoltsUsecase getBoltsUsecase;
+  RemoveBoltUsecase removeBoltUsecase;
 
-  BoltBloc(this.addBoltUsecase, this.getBoltsUsecase) : super(BoltInitial()) {
+  BoltBloc(this.addBoltUsecase, this.getBoltsUsecase, this.removeBoltUsecase)
+      : super(BoltInitial()) {
     on<AddBoltEvent>(_onAddBolt);
     on<GetBoltsEvent>(_onGetBolts);
+    on<RemoveBoltEvent>(_onRemoveBolt);
   }
   _onAddBolt(AddBoltEvent event, Emitter<BoltBlocStates> emit) async {
     emit(AddBoltLoading());
@@ -38,5 +42,16 @@ class BoltBloc extends Bloc<BoltBlocEvents, BoltBlocStates> {
         (Failure failure) =>
             emit(GetBoltsFailure(errorMessage: failure.errorMessage)),
         (List<BoltPayload> success) => emit(GetBoltsSuccess(bolts: success)));
+  }
+
+  _onRemoveBolt(RemoveBoltEvent event, Emitter<BoltBlocStates> emit) async {
+    emit(RemoveBoltLoading());
+
+    Either<Failure, void> response = await removeBoltUsecase(event.boltId);
+
+    response.fold(
+        (Failure failure) =>
+            emit(RemoveBoltFailure(errorMessage: failure.errorMessage)),
+        (success) => emit(RemoveBoltSuccess()));
   }
 }

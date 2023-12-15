@@ -1,4 +1,5 @@
 import 'package:atemkraft/core/errors/failures.dart';
+import 'package:atemkraft/features/auth/domain/entity/profile_entity.dart';
 
 import 'package:atemkraft/features/auth/domain/entity/user_entity.dart';
 
@@ -75,6 +76,37 @@ class AuthRepositoryImpl implements AuthRepository {
       } catch (e) {
         return const Left(
             ServerFailure('Failed to get a response. Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> editProfile(
+      ProfilePayload profilePayload) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await authRemoteDataSource.editProfile(profilePayload);
+        return Right(response);
+      } catch (e) {
+        return const Left(ServerFailure('Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProfilePayload>> getProfile(String? user) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await authRemoteDataSource.getProfile(user);
+        return Right(response);
+      } catch (e) {
+        return Left(ServerFailure(e.toString()));
       }
     } else {
       return const Left(NetworkFailure(

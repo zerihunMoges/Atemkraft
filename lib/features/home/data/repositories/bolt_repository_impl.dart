@@ -45,4 +45,20 @@ class BoltRepositoryImpl implements BoltRepository {
           'No internet connection. Please check your connection and try again!'));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> removeBolt(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final result = await boltRemoteDataSource.removeBolt(id);
+        return Right(result);
+      } catch (e) {
+        return const Left(
+            ServerFailure('Cannot remove bolt, Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
 }

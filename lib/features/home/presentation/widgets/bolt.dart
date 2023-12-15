@@ -38,15 +38,16 @@ class _BOLTState extends State<BOLT> {
             showInsertDataDialog(context);
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text('BOLT Wert manuell eintragen',
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
                       .copyWith(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 3.h),
+              SizedBox(width: 5.w),
               Container(
+                width: 10.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).primaryColor,
@@ -62,7 +63,7 @@ class _BOLTState extends State<BOLT> {
           ),
         ),
         SizedBox(
-          height: 1.h,
+          height: 2.h,
         ),
         const BOLTValues(),
         SizedBox(

@@ -33,3 +33,13 @@ class GetBoltsFailure extends BoltBlocStates {
 
   const GetBoltsFailure({required this.errorMessage});
 }
+
+class RemoveBoltSuccess extends BoltBlocStates {}
+
+class RemoveBoltLoading extends BoltBlocStates {}
+
+class RemoveBoltFailure extends BoltBlocStates {
+  final String errorMessage;
+
+  const RemoveBoltFailure({required this.errorMessage});
+}

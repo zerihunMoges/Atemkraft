@@ -10,7 +10,6 @@ class AccountSettings extends StatelessWidget {
   final List<List> settings = [
     ['Edit Profile', AppRoutes.editProfile],
     ['Change Password', AppRoutes.changePassword],
-    ['Delete Account', AppRoutes.deleteAccount]
   ];
 
   AccountSettings({super.key});
@@ -54,6 +53,49 @@ class AccountSettings extends StatelessWidget {
               },
             );
           }),
+      SizedBox(
+        height: 1.h,
+      ),
+      CustomListTile(
+        title: 'Delete Account',
+        onNextPressed: () {
+          showDeleteAccountDialog(context);
+        },
+      )
     ]);
+  }
+
+  void showDeleteAccountDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(25),
+          title: Text('Are you sure you want to delete your account?',
+              style: Theme.of(context).textTheme.labelMedium),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: Text('Cancel',
+                        style: Theme.of(context).textTheme.bodySmall),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text('Sure',
+                          style: Theme.of(context).textTheme.bodySmall))
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

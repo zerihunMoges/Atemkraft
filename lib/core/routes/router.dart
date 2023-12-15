@@ -1,8 +1,9 @@
 import 'package:atemkraft/features/account/presentation/screens/about_screen.dart';
 import 'package:atemkraft/features/account/presentation/screens/account_information_screen.dart';
-import 'package:atemkraft/features/account/presentation/screens/my_account.dart';
-import 'package:atemkraft/features/account/presentation/screens/notifications.dart';
-import 'package:atemkraft/features/account/presentation/screens/settings.dart';
+import 'package:atemkraft/features/account/presentation/screens/edit_profile_screen.dart';
+import 'package:atemkraft/features/account/presentation/screens/my_account_screen.dart';
+import 'package:atemkraft/features/account/presentation/screens/notifications_screen.dart';
+import 'package:atemkraft/features/account/presentation/screens/settings_screen.dart';
 import 'package:atemkraft/features/auth/presentation/screens/login_screen.dart';
 import 'package:atemkraft/features/home/presentation/screens/home_screen.dart';
 import 'package:atemkraft/features/home/presentation/screens/my_training_plan_screen.dart';
@@ -49,8 +50,12 @@ class AppRouter extends StatelessWidget {
               ),
             ]),
         GoRoute(
-          path: AppRoutes.settings,
-          builder: (context, state) => const SettingScreen(),
+            path: AppRoutes.settings,
+            builder: (context, state) => const SettingScreen(),
+            routes: []),
+        GoRoute(
+          path: AppRoutes.editProfile,
+          builder: (context, state) => const EditProfileScreen(),
         ),
         GoRoute(
           path: AppRoutes.splash,

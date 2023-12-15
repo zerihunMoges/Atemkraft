@@ -62,13 +62,6 @@ class _BOLTCounterState extends State<BOLTCounter> {
               right: 0,
               child: BlocConsumer<BoltBloc, BoltBlocStates>(
                   builder: (context, state) {
-                if (state is AddBoltLoading) {
-                  return const Icon(
-                    Icons.timelapse_outlined,
-                    size: 50,
-                    color: Color(0xFF01ABE3),
-                  );
-                }
                 return IconButton(
                   icon: Icon(
                     Icons.alarm_add_rounded,
@@ -98,15 +91,12 @@ class _BOLTCounterState extends State<BOLTCounter> {
             )
           ],
         ),
-        SizedBox(
-          height: 1.h,
-        ),
         Text(
           '$sec Sek',
           style: Theme.of(context)
               .textTheme
               .bodyLarge!
-              .copyWith(fontWeight: FontWeight.w400, fontSize: 24),
+              .copyWith(fontWeight: FontWeight.bold, fontSize: 28),
         )
       ],
     );

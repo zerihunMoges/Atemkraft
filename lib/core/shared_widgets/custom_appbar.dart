@@ -18,10 +18,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title, style: Theme.of(context).textTheme.labelLarge),
       centerTitle: true,
       actions: const [
-        NotificationIcon(),
-        SizedBox(
-          width: 20,
-        )
+        // NotificationIcon(),
+        // SizedBox(
+        //   width: 20,
+        // )
       ],
     );
   }
