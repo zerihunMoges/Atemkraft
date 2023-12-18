@@ -68,7 +68,6 @@ Future<void> injectionInit() async {
       () => AuthRemoteDataSourceImpl());
   getIt.registerLazySingleton<AdminRemoteDataSource>(
       () => AdminDataSourceImpl());
-
   getIt.registerLazySingleton<BoltRemoteDataSource>(
       () => BoltRemoteDataSourceImpl());
   //! Common
