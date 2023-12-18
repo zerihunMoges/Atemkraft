@@ -10,6 +10,10 @@ String getDisplayName() {
   return FirebaseAuth.instance.currentUser?.displayName ?? 'There';
 }
 
+String getUserEmail() {
+  return FirebaseAuth.instance.currentUser?.email ?? '';
+}
+
 String getUserId() {
   return FirebaseAuth.instance.currentUser!.uid;
 }

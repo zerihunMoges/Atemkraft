@@ -6,10 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../auth/presentation/widgets/forgot_password_popup.dart';
+
 class AccountSettings extends StatelessWidget {
   final List<List> settings = [
     ['Edit Profile', AppRoutes.editProfile],
-    ['Change Password', AppRoutes.changePassword],
+    // ['Change Password', AppRoutes.changePassword],
   ];
 
   AccountSettings({super.key});
@@ -57,9 +59,9 @@ class AccountSettings extends StatelessWidget {
         height: 1.h,
       ),
       CustomListTile(
-        title: 'Delete Account',
+        title: 'Change Password',
         onNextPressed: () {
-          showDeleteAccountDialog(context);
+          showForgotPasswordDialog(context);
         },
       )
     ]);

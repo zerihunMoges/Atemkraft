@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/injections/injections.dart';
+import 'features/admin/presentation/bloc/user_plans_bloc/plan_bloc.dart';
 import 'firebase_options.dart';
 
 import 'core/routes/router.dart';
@@ -28,7 +29,10 @@ void main() async {
                 create: (_) => getIt<AdminBloc>(),
               ),
               BlocProvider<BoltBloc>(create: (_) => getIt<BoltBloc>()),
-              BlocProvider<ProfileBloc>(create: (_) => getIt<ProfileBloc>())
+              BlocProvider<ProfileBloc>(create: (_) => getIt<ProfileBloc>()),
+              BlocProvider<PlanBloc>(
+                create: (_) => getIt<PlanBloc>(),
+              ),
             ],
             child: ResponsiveSizer(
               builder: (context, orientation, deviceType) {

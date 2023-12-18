@@ -101,7 +101,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             firestoreInstance.collection('userProfile');
 
         QuerySnapshot querySnapshot = await profileCollection
-            .where('user', isEqualTo: user.uid)
+            .where('uId', isEqualTo: user.uid)
             .limit(1)
             .get();
 
@@ -109,9 +109,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
           await profileCollection.doc(documentSnapshot.id).update({
             'name': payload.fullName,
-            'dateOfBirth': payload.dateOfBirth,
-            'size': payload.size,
-            'phonenumber': payload.phonenumber,
+            'dateOfBirth': payload.dateOfBirth != null
+                ? Timestamp.fromDate(payload.dateOfBirth!)
+                : null,
+            'height': payload.size,
+            'phoneNumber': payload.phonenumber,
             'weight': payload.weight
           });
           return true;
@@ -136,7 +138,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             firestoreInstance.collection('userProfile');
 
         QuerySnapshot querySnapshot = await profileCollection
-            .where('user', isEqualTo: userId ?? user.uid)
+            .where('uId', isEqualTo: userId ?? user.uid)
             .limit(1)
             .get();
 

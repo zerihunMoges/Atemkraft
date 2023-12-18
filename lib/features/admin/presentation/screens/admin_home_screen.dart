@@ -30,9 +30,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
-              BlocProvider.of<AdminBloc>(context).add(FetchClientsEvent());
-
-            },
+            BlocProvider.of<AdminBloc>(context).add(FetchClientsEvent());
+          },
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -40,35 +39,35 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               children: [
                 const HomeAppBar(),
                 const SizedBox(height: 20.0),
-                RefreshIndicator(
-                  onRefresh: () async {
-                    BlocProvider.of<AdminBloc>(context)
-                        .add(FetchClientsEvent());
-                  },
-                  child: CommonCard(
-                    headingTitle: "List of Clients",
-                    body: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 12.0),
-                          BlocConsumer<AdminBloc, AdminBlocState>(
-                              builder: (context, state) {
-                            if (state is FetchClientsLoading) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.sizeOf(context).width * 0.25),
-                                child: const LoadingAnimation(),
-                              );
-                            } else if (state is FetchClientsSuccess) {
-                              return SizedBox(
-                                width: MediaQuery.sizeOf(context).width * 0.78,
+                CommonCard(
+                  headingTitle: "List of Clients",
+                  body: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        BlocConsumer<AdminBloc, AdminBlocState>(
+                            builder: (context, state) {
+                          if (state is FetchClientsLoading) {
+                            return Align(
+                              alignment: Alignment.center,
+                              child: Transform.scale(
+                                  scale: 0.7, child: const LoadingAnimation()),
+                            );
+                          } else if (state is FetchClientsSuccess) {
+                            return SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  BlocProvider.of<AdminBloc>(context)
+                                      .add(FetchClientsEvent());
+                                },
                                 child: ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: state.clients.length,
-                                  itemBuilder: (BuildContext context, int index) {
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
                                     return Card(
                                       color: primaryColor,
                                       elevation: 2.0,
@@ -93,25 +92,23 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                                   fontWeight: FontWeight.w400,
                                                   color: white),
                                         ),
-                                        // You can add more details here if needed
-                                        // subtitle: Text('ID: ${clients[index].uId}'),
                                       ),
                                     );
                                   },
                                 ),
-                              );
-                            }
-                            return const SizedBox();
-                          }, listener: (context, state) {
-                            if (state is FetchClientsFailure) {
-                              showCustomMessage(
-                                context,
-                                state.errorMessage,
-                              );
-                            }
-                          }),
-                        ],
-                      ),
+                              ),
+                            );
+                          }
+                          return const SizedBox();
+                        }, listener: (context, state) {
+                          if (state is FetchClientsFailure) {
+                            showCustomMessage(
+                              context,
+                              state.errorMessage,
+                            );
+                          }
+                        }),
+                      ],
                     ),
                   ),
                 ),

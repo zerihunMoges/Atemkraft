@@ -12,6 +12,7 @@ import 'package:atemkraft/features/auth/presentation/bloc/profile_bloc_states.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AccountInformationScreen extends StatefulWidget {
@@ -46,8 +47,16 @@ class _AccountInformationScreenState extends State<AccountInformationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 infoRow('Name', profile.fullName ?? '-', context),
-                infoRow('Date of Birth', profile.dateOfBirth ?? '-', context),
-                infoRow('Weight', profile.weight ?? '-', context),
+                infoRow(
+                    'Date of Birth',
+                    profile.dateOfBirth != null
+                        ? DateFormat('d MMMM, y').format(profile.dateOfBirth!)
+                        : '-',
+                    context),
+                infoRow(
+                    'Weight',
+                    profile.weight != null ? '${profile.weight} kg' : '-',
+                    context),
                 infoRow(
                     'Size',
                     profile.size != null ? '${profile.size} ft tall' : '-',

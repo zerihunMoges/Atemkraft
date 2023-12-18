@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
+
 const String fontFamily = 'Inter';
 var appTheme = ThemeData(
     primaryColor: primaryColor,
     colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
     useMaterial3: true,
+    dropdownMenuTheme: const DropdownMenuThemeData(
+      textStyle: TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+      ),
+    ),
     textTheme: const TextTheme(
-      
+      bodySmall: TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+      ),
       bodyLarge: TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
@@ -17,30 +29,21 @@ var appTheme = ThemeData(
         fontWeight: FontWeight.w500,
         fontSize: 18,
       ),
-      bodySmall: TextStyle(
-        fontFamily: fontFamily,
-        fontWeight: FontWeight.w500,
-
-        fontSize: 14,
-      ),
       labelLarge: TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
         fontSize: 24,
       ),
-
       labelMedium: TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
         fontSize: 18,
       ),
-    
       labelSmall: TextStyle(
         fontFamily: fontFamily,
         fontWeight: FontWeight.bold,
         fontSize: 16,
       ),
-      
       displayLarge: TextStyle(
         fontFamily: fontFamily,
         fontSize: 28,

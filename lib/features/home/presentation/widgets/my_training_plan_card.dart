@@ -9,13 +9,17 @@ class MyTrainingPlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonCard(
-      headingTitle: "Mein Trainingsplan",
-      onHeadingActionTap: () => context.push(AppRoutes.myTrainingPlan),
-      headingAction: Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 4.w,
-        color: Colors.white, // Set the arrow color
+    return GestureDetector(
+      onTap: () {
+        context.push(AppRoutes.myTrainingPlan);
+      },
+      child: CommonCard(
+        headingTitle: "Mein Trainingsplan",
+        headingAction: Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 4.w,
+          color: Colors.white, // Set the arrow color
+        ),
       ),
     );
   }

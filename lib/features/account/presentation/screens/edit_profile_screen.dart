@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:atemkraft/core/shared_widgets/custom_appbar.dart';
 import 'package:atemkraft/core/shared_widgets/custom_button.dart';
 import 'package:atemkraft/core/shared_widgets/custom_text_field.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -26,7 +29,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController nameController;
   late TextEditingController weightController;
   late TextEditingController sizeController;
-  late String _phoneEditingController;
+  String _phoneEditingController = '';
   late TextEditingController dateController;
   late TextEditingController yearController;
   late TextEditingController monthController;
@@ -117,6 +120,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         'Phone Number',
                         IntlPhoneField(
                           readOnly: readOnly,
+                          style: Theme.of(context).textTheme.labelSmall,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
                             focusColor: primaryColor,
@@ -124,7 +128,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                             label: Text("Mobile Number",
                                 style: Theme.of(context).textTheme.labelSmall),
                           ),
-                          initialCountryCode: 'DU',
+                          initialCountryCode: 'DE',
+                          initialValue: _phoneEditingController,
                           flagsButtonPadding: const EdgeInsets.all(16),
                           dropdownIconPosition: IconPosition.trailing,
                           flagsButtonMargin:
@@ -136,8 +141,6 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           onChanged: (phone) {
-                            // Handle phone number changes
-
                             setState(() {
                               _phoneEditingController = phone.completeNumber;
                             });
@@ -151,8 +154,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          state is EditProfileLoading ||
-                                  state is GetProfileLoading
+                          state is EditProfileLoading
                               ? Center(
                                   child: Transform.scale(
                                       scale: 0.3,
@@ -167,11 +169,21 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                         profilePayload: ProfilePayload(
                                             fullName:
                                                 nameController.text.trim(),
-                                            weight: weightController.text,
-                                            size: sizeController.text,
+                                            weight: weightController.text != ''
+                                                ? double.parse(
+                                                    weightController.text)
+                                                : null,
+                                            size: sizeController.text != ''
+                                                ? double.parse(
+                                                    sizeController.text)
+                                                : null,
                                             phonenumber:
                                                 _phoneEditingController,
-                                            dateOfBirth: dateController.text),
+                                            dateOfBirth: dateController.text !=
+                                                    ''
+                                                ? DateFormat('d MMMM, y')
+                                                    .parse(dateController.text)
+                                                : null),
                                       ));
                                     }
                                   },
@@ -184,11 +196,26 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               }, listener: (context, state) {
                 if (state is EditProfileSuccess) {
                   BlocProvider.of<ProfileBloc>(context).add(GetProfileEvent());
+                  showCustomMessage(context, "Information Updated",
+                      isError: false);
                 }
                 if (state is EditProfileFailure) {
                   showCustomMessage(context, state.errorMessage);
                 }
-
+                if (state is GetProfileSuccess) {
+                  setState(() {
+                    nameController.text = state.profilePayload.fullName!;
+                    weightController.text =
+                        state.profilePayload.weight.toString();
+                    sizeController.text = state.profilePayload.size.toString();
+                    _phoneEditingController = state.profilePayload.phonenumber!;
+                    dateController.text =
+                        state.profilePayload.dateOfBirth != null
+                            ? DateFormat('d MMMM, y')
+                                .format(state.profilePayload.dateOfBirth!)
+                            : '';
+                  });
+                }
                 if (state is GetProfileFailure) {
                   showCustomMessage(context, state.errorMessage);
                 }

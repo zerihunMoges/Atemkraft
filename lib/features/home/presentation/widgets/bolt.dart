@@ -87,6 +87,7 @@ class _BOLTState extends State<BOLT> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               CustomTextField(
+                  keyboardType: TextInputType.number,
                   controller: manualInputController,
                   label:
                       "Sekunden eintragen..."), // Assuming CustomTextField accepts a controller

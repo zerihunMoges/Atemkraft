@@ -20,7 +20,7 @@ class _ForgotPasswordDialogState extends State<ForgotPasswordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Forgot Password',
+      title: Text('Reset Password',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium),
       content: Form(
@@ -29,7 +29,7 @@ class _ForgotPasswordDialogState extends State<ForgotPasswordDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text('Enter your email to reset your password:',
-                style: Theme.of(context).textTheme.bodyMedium),
+                style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 10),
             CustomTextField(
                 validator: Validators.emailValidator,
@@ -49,7 +49,8 @@ class _ForgotPasswordDialogState extends State<ForgotPasswordDialog> {
                 BlocConsumer<AuthBloc, AuthBlocStates>(
                     builder: (context, state) {
                   if (state is ForgotPasswordLoading) {
-                    return Transform.scale(scale:0.6,child: const LoadingAnimation());
+                    return Transform.scale(
+                        scale: 0.6, child: const LoadingAnimation());
                   }
                   return TextButton(
                     onPressed: () {

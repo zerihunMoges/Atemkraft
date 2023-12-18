@@ -42,7 +42,7 @@ class _BOLTValuesState extends State<BOLTValues> {
                       scale: 0.3, child: const LoadingAnimation()));
             }
             return state is GetBoltsSuccess || boltValues.isNotEmpty
-                ? Expanded(
+                ? SizedBox(
                     child: boltValues.isNotEmpty
                         ? SizedBox(
                             height: 20.h,

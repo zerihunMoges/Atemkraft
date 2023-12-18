@@ -9,6 +9,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/shared_widgets/bottom_nav_bar.dart';
+import '../../../../core/utils/firebase.dart';
 
 class MyAccountScreen extends StatelessWidget {
   const MyAccountScreen({super.key});
@@ -32,11 +33,11 @@ class MyAccountScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Alexander Trishy',
+                    getDisplayName(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Text(
-                    'Trishyalex@gmail.com',
+                    getUserEmail(),
                     style: Theme.of(context).textTheme.bodySmall,
                   )
                 ],
@@ -49,22 +50,28 @@ class MyAccountScreen extends StatelessWidget {
             SizedBox(
               height: 7.h,
             ),
-            Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(logoutIcon),
-                  SizedBox(
-                    width: 3.w,
-                  ),
-                  Text(
-                    'Log-Out',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 16),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                signOutUser();
+                context.go(AppRoutes.login);
+              },
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(logoutIcon),
+                    SizedBox(
+                      width: 3.w,
+                    ),
+                    Text(
+                      'Log-Out',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 16),
+                    )
+                  ],
+                ),
               ),
             )
           ]),
