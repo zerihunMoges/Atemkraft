@@ -57,48 +57,58 @@ class _BOLTValuesState extends State<BOLTValues> {
                                 final duration = boltValues[index].duration;
                                 final timestamp = boltValues[index].timestamp;
                                 final boltId = boltValues[index].id;
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Erstellt am: ${formatDateTime(timestamp!)}',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(color: black),
-                                    ),
-                                    Expanded(
-                                        child: SizedBox(
-                                      width: 4.w,
-                                    )),
-                                    SizedBox(
-                                      width: 20.w,
-                                      child: Text(
-                                        '${duration.toString()} SEK',
+                                return Dismissible(
+                                  key: Key(boltId!),
+                                  direction: DismissDirection.startToEnd,
+                                  confirmDismiss: (direction) async {
+                                    final bool res = await showDeleteBoltDialog(
+                                        context, boltId, duration);
+
+                                    return res;
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Erstellt am: ${formatDateTime(timestamp!)}',
                                         overflow: TextOverflow.ellipsis,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
-                                            .copyWith(
-                                                color: black,
-                                                fontWeight: FontWeight.bold),
+                                            .copyWith(color: black),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 1.w,
-                                    ),
-                                    GestureDetector(
-                                      child: Icon(Icons.remove,
-                                          color: Colors.red[400]),
-                                      onTap: () {
-                                        showDeleteBoltDialog(
-                                            context, boltId!, duration);
-                                      },
-                                    )
-                                  ],
+                                      Expanded(
+                                          child: SizedBox(
+                                        width: 4.w,
+                                      )),
+                                      SizedBox(
+                                        width: 20.w,
+                                        child: Text(
+                                          '${duration.toString()} SEK',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                  color: black,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 1.w,
+                                      ),
+                                      GestureDetector(
+                                        child: Icon(Icons.remove,
+                                            color: Colors.red[400]),
+                                        onTap: () {
+                                          showDeleteBoltDialog(
+                                              context, boltId!, duration);
+                                        },
+                                      )
+                                    ],
+                                  ),
                                 );
                               },
                             ),
@@ -137,7 +147,8 @@ class _BOLTValuesState extends State<BOLTValues> {
     return formattedDateTime;
   }
 
-  void showDeleteBoltDialog(BuildContext context, String boltId, int duration) {
+  bool showDeleteBoltDialog(BuildContext context, String boltId, int duration) {
+    bool removeSuccess = false;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -176,6 +187,7 @@ class _BOLTValuesState extends State<BOLTValues> {
                       BlocProvider.of<BoltBloc>(context).add(GetBoltsEvent(
                         user: getUserId(),
                       ));
+                      removeSuccess = true;
                       context.pop();
                     } else if (state is RemoveBoltFailure) {
                       showCustomMessage(context, state.errorMessage);
@@ -188,5 +200,7 @@ class _BOLTValuesState extends State<BOLTValues> {
         );
       },
     );
+
+    return removeSuccess;
   }
 }
