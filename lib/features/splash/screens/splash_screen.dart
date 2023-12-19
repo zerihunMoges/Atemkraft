@@ -1,4 +1,5 @@
 import 'package:atemkraft/core/routes/app_routes.dart';
+import 'package:atemkraft/core/utils/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   final _storage = const FlutterSecureStorage();
   late bool _isFirstTime;
   late GoRouter _router;
@@ -37,23 +37,23 @@ class _SplashScreenState extends State<SplashScreen> {
         _router.go(AppRoutes.onboarding);
       });
     } else {
-      Future.delayed(const Duration(seconds: 3), () {
-        if (FirebaseAuth.instance.currentUser != null){
-          _router.go(AppRoutes.home);
-        }
-        else{
+      Future.delayed(const Duration(seconds: 3), () async {
+        if (FirebaseAuth.instance.currentUser != null) {
+          final isAdmin = await isUserAdmin();
+          if (!isAdmin) {
+            _router.go(AppRoutes.home);
+          } else {
+            _router.go(AppRoutes.adminHome);
+          }
+        } else {
           _router.go(AppRoutes.login);
         }
-        
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-     Future.delayed(const Duration(seconds: 3), () {
-      context.go(AppRoutes.onboarding);
-    });
     return Scaffold(
       body: Container(
         height: MediaQuery.sizeOf(context).height,

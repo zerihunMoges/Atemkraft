@@ -6,6 +6,7 @@ import '../../../../core/shared_widgets/error_snake_bar.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../home/presentation/widgets/common_card.dart';
 import '../bloc/admin_bloc.dart';
+import '../bloc/user_plans_bloc/plan_bloc.dart';
 import '../widgets/add_plan_dialog.dart';
 
 class UserPlansScreen extends StatefulWidget {
@@ -21,8 +22,6 @@ class _UserPlansScreenState extends State<UserPlansScreen> {
   final planController = TextEditingController();
   @override
   initState() {
-    BlocProvider.of<AdminBloc>(context)
-        .add(FetchUserPlansEvent(uId: widget.uId));
     super.initState();
   }
 
@@ -50,18 +49,17 @@ class _UserPlansScreenState extends State<UserPlansScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 12.0),
-                      BlocConsumer<AdminBloc, AdminBlocState>(
+                      BlocConsumer<PlanBloc, PlanBlocState>(
                           builder: (context, state) {
                         if (state is FetchUserPlansLoading) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.sizeOf(context).width * 0.25),
-                            child: const LoadingAnimation(),
+                          return Align(
+                            alignment: Alignment.center,
+                            child: Transform.scale(
+                                scale: 0.7, child: const LoadingAnimation()),
                           );
                         } else if (state is FetchUserPlansSuccess) {
                           return SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 0.78,
+                            width: MediaQuery.sizeOf(context).width * 0.9,
                             child: ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,

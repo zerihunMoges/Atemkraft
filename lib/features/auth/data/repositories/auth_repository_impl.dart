@@ -1,4 +1,5 @@
 import 'package:atemkraft/core/errors/failures.dart';
+import 'package:atemkraft/features/auth/domain/entity/profile_entity.dart';
 
 import 'package:atemkraft/features/auth/domain/entity/user_entity.dart';
 
@@ -23,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, bool>> forgotPassword(String email) async {
     if (await networkInfo.isConnected) {
       try {
-       await authRemoteDataSource.resetPassword(email);
+        await authRemoteDataSource.resetPassword(email);
         return const Right(true);
       } catch (e) {
         return const Left(
@@ -42,7 +43,6 @@ class AuthRepositoryImpl implements AuthRepository {
         final response = await authRemoteDataSource.login(credentials);
         return Right(response);
       } on FirebaseAuthException catch (e) {
-        print(e);
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
           return const Left(
               ServerFailure('Invalid email or password. Please try again!'));
@@ -76,6 +76,37 @@ class AuthRepositoryImpl implements AuthRepository {
       } catch (e) {
         return const Left(
             ServerFailure('Failed to get a response. Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> editProfile(
+      ProfilePayload profilePayload) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await authRemoteDataSource.editProfile(profilePayload);
+        return Right(response);
+      } catch (e) {
+        return const Left(ServerFailure('Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProfilePayload>> getProfile(String? user) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await authRemoteDataSource.getProfile(user);
+        return Right(response);
+      } catch (e) {
+        return Left(ServerFailure(e.toString()));
       }
     } else {
       return const Left(NetworkFailure(

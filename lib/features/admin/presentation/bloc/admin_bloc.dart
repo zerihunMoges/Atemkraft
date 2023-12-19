@@ -16,15 +16,9 @@ part 'admin_bloc_states.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminBlocState> {
   FetchClientsUseCase fetchClientUseCase;
-  FetchUserPlansUseCase fetchUserPlansUseCase;
-  CreatePlanUseCase createPlanUseCase;
 
-  AdminBloc(this.fetchClientUseCase, this.fetchUserPlansUseCase,
-      this.createPlanUseCase)
-      : super(AdminBlocInitial()) {
+  AdminBloc(this.fetchClientUseCase) : super(AdminBlocInitial()) {
     on<FetchClientsEvent>(_onFetchClients);
-    on<FetchUserPlansEvent>(_onFetchUserPlans);
-    on<CreatePlanEvent>(_onCreatePlan);
   }
   _onFetchClients(FetchClientsEvent event, Emitter<AdminBlocState> emit) async {
     emit(FetchClientsLoading());
@@ -36,29 +30,5 @@ class AdminBloc extends Bloc<AdminEvent, AdminBlocState> {
         (Failure failure) =>
             emit(FetchClientsFailure(errorMessage: failure.errorMessage)),
         (List<ClientEntity> success) => emit(FetchClientsSuccess(success)));
-  }
-
-  _onFetchUserPlans(
-      FetchUserPlansEvent event, Emitter<AdminBlocState> emit) async {
-    emit(FetchUserPlansLoading());
-
-    Either<Failure, List<PlanEntity>> response =
-        await fetchUserPlansUseCase(event.uId);
-
-    response.fold(
-        (Failure failure) =>
-            emit(FetchUserPlansFailure(errorMessage: failure.errorMessage)),
-        (List<PlanEntity> success) => emit(FetchUserPlansSuccess(success)));
-  }
-
-  _onCreatePlan(CreatePlanEvent event, Emitter<AdminBlocState> emit) async {
-    emit(CreatePlanLoading());
-
-    Either<Failure, bool> response = await createPlanUseCase([event.uId,event.description]);
-
-    response.fold(
-        (Failure failure) =>
-            emit(CreatePlanFailure(errorMessage: failure.errorMessage)),
-        (bool success) => emit(CreatePlanSuccess()));
   }
 }

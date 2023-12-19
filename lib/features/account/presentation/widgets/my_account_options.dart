@@ -8,17 +8,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MyAccountOptions extends StatelessWidget {
   final List<List> accountOptions = [
-    [userIcon, 'Account Information', '${AppRoutes.myaccount}/${AppRoutes.accountInformation}'],
     [
-      trainingIcon,
-      'My Trainings',
-      AppRoutes.myTrainingPlan
+      userIcon,
+      'Account Information',
+      '${AppRoutes.myaccount}/${AppRoutes.accountInformation}'
     ],
-    [notificationIcon, 'Notifications', AppRoutes.notifications],
+    [trainingIcon, 'My Trainings', AppRoutes.myTrainingPlan],
+    // [notificationIcon, 'Notifications', AppRoutes.notifications],
     [settingIcon, 'Settings', AppRoutes.settings],
-    [achievementsIcon, 'Achievements', '${AppRoutes.myaccount}/${AppRoutes.aboutOwner}'
-    ],
-    [personalHistoryIcon, 'Personal History', AppRoutes.accountInformation]
+    // [achievementsIcon, 'Achievements', '${AppRoutes.myaccount}/${AppRoutes.aboutOwner}'
+    // ],
+    // [personalHistoryIcon, 'Personal History', AppRoutes.accountInformation]
   ];
 
   MyAccountOptions({super.key});

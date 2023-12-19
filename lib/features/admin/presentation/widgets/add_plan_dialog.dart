@@ -1,4 +1,5 @@
 import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
+import 'package:atemkraft/features/admin/presentation/bloc/user_plans_bloc/plan_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +53,7 @@ addPlanDialog(
                     .labelMedium!
                     .copyWith(color: primaryColor)),
           ),
-          BlocConsumer<AdminBloc, AdminBlocState>(builder: (context, state) {
+          BlocConsumer<PlanBloc, PlanBlocState>(builder: (context, state) {
             if (state is CreatePlanLoading) {
               return TextButton(
                 onPressed: null,
@@ -66,7 +67,7 @@ addPlanDialog(
             return TextButton(
               onPressed: () {
                 if (controller.text != '') {
-                  BlocProvider.of<AdminBloc>(context).add(
+                  BlocProvider.of<PlanBloc>(context).add(
                       CreatePlanEvent(description: controller.text, uId: uId));
                 }
               },
@@ -86,7 +87,7 @@ addPlanDialog(
               controller.clear();
               showCustomMessage(context, 'Plan successfully created!',
                   isError: false);
-              BlocProvider.of<AdminBloc>(context)
+              BlocProvider.of<PlanBloc>(context)
                   .add(FetchUserPlansEvent(uId: uId));
               context.pop();
             }

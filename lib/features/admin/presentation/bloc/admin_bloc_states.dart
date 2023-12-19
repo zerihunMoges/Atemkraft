@@ -20,25 +20,3 @@ class FetchClientsFailure extends AdminBlocState {
   final String errorMessage;
   const FetchClientsFailure({required this.errorMessage});
 }
-
-class FetchUserPlansLoading extends AdminBlocState {}
-
-class FetchUserPlansSuccess extends AdminBlocState {
-  final List<PlanEntity> plans;
-  const FetchUserPlansSuccess(this.plans);
-}
-
-class FetchUserPlansFailure extends AdminBlocState {
-  final String errorMessage;
-  const FetchUserPlansFailure({required this.errorMessage});
-}
-
-class CreatePlanLoading extends AdminBlocState {}
-
-class CreatePlanSuccess extends AdminBlocState {}
-
-class CreatePlanFailure extends AdminBlocState {
-  final String errorMessage;
-
-  const CreatePlanFailure({required this.errorMessage});
-}

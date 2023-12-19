@@ -8,7 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class OtherSettings extends StatelessWidget {
   final List<List> settings = [
-    ['Language', AppRoutes.language],
+    // ['Language', AppRoutes.language],
     ['Privacy', AppRoutes.privacy],
     ['Help & Support', AppRoutes.help],
     ['About Owner', '${AppRoutes.myaccount}/${AppRoutes.aboutOwner}']

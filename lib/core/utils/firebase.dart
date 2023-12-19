@@ -1,8 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseAuth _auth = FirebaseAuth.instance;
+FirebaseAuth get authInstance => _auth;
+FirebaseFirestore get firestoreInstance => _firestore;
+
 String getDisplayName() {
-  return FirebaseAuth.instance.currentUser!.displayName ?? 'There';
+  return FirebaseAuth.instance.currentUser?.displayName ?? 'There';
+}
+
+String getUserEmail() {
+  return FirebaseAuth.instance.currentUser?.email ?? '';
 }
 
 String getUserId() {

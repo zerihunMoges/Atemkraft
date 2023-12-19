@@ -1,3 +1,4 @@
+import 'package:atemkraft/features/auth/domain/entity/profile_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,6 +12,12 @@ abstract class AuthRemoteDataSource {
   Future<UserCredential> login(
     AuthPayload payload,
   );
+
+  Future<bool> editProfile(
+    ProfilePayload payload,
+  );
+
+  Future<ProfilePayload> getProfile(String? user);
 
   Future<void> resetPassword(String email);
 }
@@ -81,6 +88,76 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (e) {
       throw FirebaseAuthException(code: 'reset-faild');
+    }
+  }
+
+  @override
+  Future<bool> editProfile(ProfilePayload payload) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        CollectionReference profileCollection =
+            firestoreInstance.collection('userProfile');
+
+        QuerySnapshot querySnapshot = await profileCollection
+            .where('uId', isEqualTo: user.uid)
+            .limit(1)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+          await profileCollection.doc(documentSnapshot.id).update({
+            'name': payload.fullName,
+            'dateOfBirth': payload.dateOfBirth != null
+                ? Timestamp.fromDate(payload.dateOfBirth!)
+                : null,
+            'height': payload.size,
+            'phoneNumber': payload.phonenumber,
+            'weight': payload.weight
+          });
+          return true;
+        } else {
+          throw Exception('profile not found!');
+        }
+      } else {
+        throw Exception('User not signed in.');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<ProfilePayload> getProfile(String? userId) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        CollectionReference profileCollection =
+            firestoreInstance.collection('userProfile');
+
+        QuerySnapshot querySnapshot = await profileCollection
+            .where('uId', isEqualTo: userId ?? user.uid)
+            .limit(1)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          ProfilePayload profileData = ProfilePayload.fromMap(
+              querySnapshot.docs.first.data() as Map<String, dynamic>,
+              user.uid,
+              user.email!,
+              user.displayName!);
+
+          return profileData;
+        } else {
+          throw Exception('profile not found');
+        }
+      } else {
+        throw Exception('User not signed in.');
+      }
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

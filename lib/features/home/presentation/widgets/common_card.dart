@@ -22,10 +22,11 @@ class CommonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return SizedBox(
+        child: Column(
       children: [
         Container(
+            width: MediaQuery.sizeOf(context).width * 0.94,
             padding:
                 EdgeInsets.all(headingPadding != null ? headingPadding! : 8),
             decoration: const BoxDecoration(
@@ -61,6 +62,7 @@ class CommonCard extends StatelessWidget {
               ],
             )),
         Container(
+          width: MediaQuery.sizeOf(context).width * 0.94,
           padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(
             color: Color(0xFFD1DCE8),
@@ -69,12 +71,9 @@ class CommonCard extends StatelessWidget {
               bottomRight: Radius.circular(10.0),
             ),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [body ?? Container()],
-          ),
+          child: body ?? Container(),
         )
       ],
-    );
+    ));
   }
 }
