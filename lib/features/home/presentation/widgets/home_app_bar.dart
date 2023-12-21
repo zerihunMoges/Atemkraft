@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/firebase.dart';
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+  final List<Widget>? actions;
+  const HomeAppBar({super.key, this.actions = const []});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,6 +23,10 @@ class HomeAppBar extends StatelessWidget {
             )
           ],
         ),
+        Spacer(),
+        Row(
+          children: actions!,
+        )
         // InkWell(
         //   child: const NotificationIcon(),
         //   onTap: () => context.push(AppRoutes.notifications),

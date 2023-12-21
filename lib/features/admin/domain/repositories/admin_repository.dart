@@ -5,8 +5,8 @@ import '../../../../core/errors/failures.dart';
 import '../entity/plan_entity.dart';
 
 abstract class AdminRepository {
-  Future<Either<Failure, bool>> createPlan(String uId,String description);
-
+  Future<Either<Failure, bool>> createPlan(String uId, String description);
+  Future<Either<Failure, bool>> deletePlan(String id);
   Future<Either<Failure, List<PlanEntity>>> fetchUserPlans(String uId);
 
   Future<Either<Failure, List<ClientEntity>>> fetchClients();

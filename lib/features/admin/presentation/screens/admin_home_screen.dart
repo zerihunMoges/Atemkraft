@@ -1,6 +1,10 @@
+import 'package:atemkraft/core/shared_widgets/bottom_nav_bar.dart';
 import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
+import 'package:atemkraft/core/utils/firebase.dart';
+import 'package:atemkraft/core/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_routes.dart';
@@ -37,7 +41,17 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const HomeAppBar(),
+                HomeAppBar(
+                  actions: [
+                    InkWell(
+                      child: SvgPicture.asset(logoutIcon),
+                      onTap: () {
+                        signOutUser();
+                        context.go(AppRoutes.login);
+                      },
+                    )
+                  ],
+                ),
                 const SizedBox(height: 20.0),
                 CommonCard(
                   headingTitle: "List of Clients",
@@ -117,9 +131,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: const CustomBottomNavBar(
-      //   activeIndex: 0,
-      // ),
+      bottomNavigationBar: const CustomBottomNavBar(
+        activeIndex: 0,
+      ),
     );
   }
 }
