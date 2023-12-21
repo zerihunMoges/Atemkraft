@@ -78,7 +78,7 @@ class AdminDataSourceImpl implements AdminRemoteDataSource {
       final clients = snapshot.docs
           .map((doc) => ClientModel(
                 uId: doc.id,
-                name: 'He',
+                name: doc['fullName'],
                 email: doc['email'],
               ))
           .toList();

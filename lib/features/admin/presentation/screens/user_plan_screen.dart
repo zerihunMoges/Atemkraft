@@ -101,14 +101,14 @@ class _UserPlansScreenState extends State<UserPlansScreen> {
                                       trailing: Checkbox(
                                         value: plans[index].completed,
                                         onChanged: (status) {
-                                          if (state is! UpdatePlanLoading)
-                                            BlocProvider.of<PlanBloc>(context)
-                                                .add(UpdatePlanEvent(
-                                                    description: plans[index]
-                                                        .planDescription,
-                                                    id: plans[index].id!,
-                                                    compeleted: !plans[index]
-                                                        .completed));
+                                          // if (state is! UpdatePlanLoading)
+                                          //   BlocProvider.of<PlanBloc>(context)
+                                          //       .add(UpdatePlanEvent(
+                                          //           description: plans[index]
+                                          //               .planDescription,
+                                          //           id: plans[index].id!,
+                                          //           compeleted: !plans[index]
+                                          //               .completed));
                                         },
                                         activeColor: Colors.green,
                                         side: BorderSide(
