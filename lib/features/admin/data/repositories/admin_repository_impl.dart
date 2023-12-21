@@ -103,4 +103,20 @@ class AdminRepositoryImpl implements AdminRepository {
           'No internet connection. Please check your connection and try again!'));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deletePlan(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        bool res = await adminRemoteDataSource.deletePlan(id);
+        return Right(res);
+      } catch (e) {
+        return const Left(
+            ServerFailure('Cannot delete plan, Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
 }

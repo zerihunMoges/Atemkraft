@@ -1,3 +1,4 @@
+import 'package:atemkraft/core/shared_widgets/bottom_nav_bar.dart';
 import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
 import 'package:atemkraft/core/utils/firebase.dart';
 import 'package:atemkraft/core/utils/images.dart';
@@ -130,9 +131,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: const CustomBottomNavBar(
-      //   activeIndex: 0,
-      // ),
+      bottomNavigationBar: const CustomBottomNavBar(
+        activeIndex: 0,
+      ),
     );
   }
 }
