@@ -60,8 +60,9 @@ class AdminRepositoryImpl implements AdminRepository {
         List<PlanModel> plans = await adminRemoteDataSource.fetchUserPlans(uId);
         return Right(plans);
       } catch (e) {
+        print(e.toString());
         return const Left(
-            ServerFailure('Cannot fetch clients, Please try again!'));
+            ServerFailure('Cannot fetch plans, Please try again!'));
       }
     } else {
       return const Left(NetworkFailure(
@@ -78,6 +79,24 @@ class AdminRepositoryImpl implements AdminRepository {
       } catch (e) {
         return const Left(
             ServerFailure('Cannot delete plan, Please try again!'));
+      }
+    } else {
+      return const Left(NetworkFailure(
+          'No internet connection. Please check your connection and try again!'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updatePlan(
+      String id, String description, bool compeleted) async {
+    if (await networkInfo.isConnected) {
+      try {
+        bool res =
+            await adminRemoteDataSource.updatePlan(id, description, compeleted);
+        return Right(res);
+      } catch (e) {
+        return const Left(
+            ServerFailure('Cannot update plan, Please try again!'));
       }
     } else {
       return const Left(NetworkFailure(

@@ -1,4 +1,3 @@
-import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
 import 'package:atemkraft/features/admin/presentation/bloc/user_plans_bloc/plan_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/shared_widgets/error_snake_bar.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/utils/firebase.dart';
-import '../bloc/admin_bloc.dart';
 
 addPlanDialog(
     BuildContext context, TextEditingController controller, String uId) {

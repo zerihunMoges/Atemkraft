@@ -1,5 +1,4 @@
 import 'package:atemkraft/core/shared_widgets/error_snake_bar.dart';
-import 'package:atemkraft/core/shared_widgets/loading_animation.dart';
 import 'package:atemkraft/core/utils/firebase.dart';
 import 'package:atemkraft/features/home/domain/entity/bolt_entity.dart';
 import 'package:atemkraft/features/home/presentation/bloc/bolt_bloc.dart';

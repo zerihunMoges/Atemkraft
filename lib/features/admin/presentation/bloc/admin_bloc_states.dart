@@ -20,12 +20,3 @@ class FetchClientsFailure extends AdminBlocState {
   final String errorMessage;
   const FetchClientsFailure({required this.errorMessage});
 }
-
-class DeletePlanLoading extends AdminBlocState {}
-
-class DeletePlanSuccess extends AdminBlocState {}
-
-class DeletePlanFailure extends AdminBlocState {
-  final String errorMessage;
-  const DeletePlanFailure({required this.errorMessage});
-}

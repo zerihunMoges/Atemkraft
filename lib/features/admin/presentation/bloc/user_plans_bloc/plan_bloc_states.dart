@@ -30,3 +30,21 @@ class CreatePlanFailure extends PlanBlocState {
 
   const CreatePlanFailure({required this.errorMessage});
 }
+
+class DeletePlanLoading extends PlanBlocState {}
+
+class DeletePlanSuccess extends PlanBlocState {}
+
+class DeletePlanFailure extends PlanBlocState {
+  final String errorMessage;
+  const DeletePlanFailure({required this.errorMessage});
+}
+
+class UpdatePlanLoading extends PlanBlocState {}
+
+class UpdatePlanSuccess extends PlanBlocState {}
+
+class UpdatePlanFailure extends PlanBlocState {
+  final String errorMessage;
+  const UpdatePlanFailure({required this.errorMessage});
+}

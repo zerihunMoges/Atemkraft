@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class AdminRemoteDataSource {
   Future<bool> createPlan(String uId, String description);
+  Future<bool> updatePlan(String id, String description, bool compeleted);
   Future<bool> deletePlan(String id);
   Future<List<PlanModel>> fetchUserPlans(String uId);
 
@@ -23,6 +24,8 @@ class AdminDataSourceImpl implements AdminRemoteDataSource {
       await _firestore.collection('plans').add({
         'uId': uId,
         'planDescription': description,
+        'completed': false,
+        'createdDate': FieldValue.serverTimestamp(),
       });
 
       return true;
@@ -38,12 +41,22 @@ class AdminDataSourceImpl implements AdminRemoteDataSource {
           .collection('plans')
           .where('uId', isEqualTo: uId)
           .get();
-      final plans = snapshot.docs
+
+      var docs = snapshot.docs;
+
+      docs.sort((a, b) {
+        var aDate = a.get('createdDate').toDate();
+        var bDate = b.get('createdDate').toDate();
+        return bDate.compareTo(aDate);
+      });
+      final plans = docs
           .map((doc) => PlanModel(
-                uId: doc['uId'],
-                planDescription: doc['planDescription'],
-              ))
+              id: doc.id,
+              uId: doc['uId'],
+              planDescription: doc['planDescription'],
+              completed: doc['completed']))
           .toList();
+
       return plans;
       // final snapshot = await _firestore.collection('plans').where('uId', (v) => v == uId;).get();
       // final plans = snapshot.docs
@@ -54,21 +67,25 @@ class AdminDataSourceImpl implements AdminRemoteDataSource {
       //     .toList();
       // return plans;
     } catch (e) {
-      // Handle errors accordingly
-      return [];
+      throw Exception(e);
     }
   }
 
   @override
   Future<List<ClientModel>> fetchClients() async {
-    final snapshot = await _firestore.collection('userProfile').get();
-    final clients = snapshot.docs
-        .map((doc) => ClientModel(
-              uId: doc.id,
-              email: doc['email'],
-            ))
-        .toList();
-    return clients;
+    try {
+      final snapshot = await _firestore.collection('userProfile').get();
+      final clients = snapshot.docs
+          .map((doc) => ClientModel(
+                uId: doc.id,
+                name: 'He',
+                email: doc['email'],
+              ))
+          .toList();
+      return clients;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override
@@ -78,6 +95,21 @@ class AdminDataSourceImpl implements AdminRemoteDataSource {
       return true;
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  @override
+  Future<bool> updatePlan(
+      String id, String description, bool compeleted) async {
+    try {
+      await _firestore
+          .collection('plans')
+          .doc(id)
+          .update({'planDescription': description, 'completed': compeleted});
+
+      return true;
+    } catch (e) {
+      throw ServerException();
     }
   }
 }
