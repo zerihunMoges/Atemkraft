@@ -1,3 +1,4 @@
+import 'package:atemkraft/features/admin/domain/usecases/delete_plan.dart';
 import 'package:atemkraft/features/admin/presentation/bloc/user_plans_bloc/plan_bloc.dart';
 import 'package:atemkraft/features/auth/domain/usecases/edit_profile_usecase.dart';
 import 'package:atemkraft/features/auth/domain/usecases/get_profile_usecase.dart';
@@ -53,6 +54,7 @@ Future<void> injectionInit() async {
   getIt.registerLazySingleton(() => GetProfileUseCase(getIt()));
   getIt.registerLazySingleton(() => AddBoltUsecase(getIt()));
   getIt.registerLazySingleton(() => GetBoltsUsecase(getIt()));
+  getIt.registerLazySingleton(() => DeletePlanUseCase(getIt()));
 
   //! Repository
   getIt.registerLazySingleton<AuthRepository>(() =>
