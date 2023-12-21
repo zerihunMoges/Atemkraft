@@ -25,4 +25,7 @@ class DeletePlanLoading extends AdminBlocState {}
 
 class DeletePlanSuccess extends AdminBlocState {}
 
-class DeletePlanFailure extends AdminBlocState {}
+class DeletePlanFailure extends AdminBlocState {
+  final String errorMessage;
+  const DeletePlanFailure({required this.errorMessage});
+}

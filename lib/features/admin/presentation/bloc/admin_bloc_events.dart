@@ -8,3 +8,9 @@ abstract class AdminEvent extends Equatable {
 }
 
 class FetchClientsEvent extends AdminEvent {}
+
+class DeletePlanEvent extends AdminEvent {
+  final String id;
+
+  DeletePlanEvent({required this.id});
+}
