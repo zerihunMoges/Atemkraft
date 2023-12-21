@@ -34,7 +34,7 @@ var getIt = GetIt.instance;
 Future<void> injectionInit() async {
   //! Bloc
   getIt.registerFactory(() => AuthBloc(getIt(), getIt(), getIt()));
-  getIt.registerFactory(() => AdminBloc(getIt()));
+  getIt.registerFactory(() => AdminBloc(getIt(), getIt()));
   getIt.registerFactory(() => PlanBloc(getIt(), getIt()));
   getIt.registerFactory(() => BoltBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => ProfileBloc(getIt(), getIt()));

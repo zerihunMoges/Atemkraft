@@ -1,3 +1,4 @@
+import 'package:atemkraft/features/admin/domain/usecases/delete_plan.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
@@ -16,9 +17,12 @@ part 'admin_bloc_states.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminBlocState> {
   FetchClientsUseCase fetchClientUseCase;
+  DeletePlanUseCase deletePlanUseCase;
 
-  AdminBloc(this.fetchClientUseCase) : super(AdminBlocInitial()) {
+  AdminBloc(this.fetchClientUseCase, this.deletePlanUseCase)
+      : super(AdminBlocInitial()) {
     on<FetchClientsEvent>(_onFetchClients);
+    on<DeletePlanEvent>(_onDeletePlan);
   }
   _onFetchClients(FetchClientsEvent event, Emitter<AdminBlocState> emit) async {
     emit(FetchClientsLoading());
@@ -30,5 +34,16 @@ class AdminBloc extends Bloc<AdminEvent, AdminBlocState> {
         (Failure failure) =>
             emit(FetchClientsFailure(errorMessage: failure.errorMessage)),
         (List<ClientEntity> success) => emit(FetchClientsSuccess(success)));
+  }
+
+  _onDeletePlan(DeletePlanEvent event, Emitter<AdminBlocState> emit) async {
+    emit(DeletePlanLoading());
+
+    Either<Failure, bool> response = await deletePlanUseCase(event.id);
+
+    response.fold(
+        (Failure failure) =>
+            emit(DeletePlanFailure(errorMessage: failure.errorMessage)),
+        (bool success) => emit(DeletePlanSuccess()));
   }
 }
