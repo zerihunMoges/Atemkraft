@@ -23,6 +23,6 @@ class ProfilePayload {
         size: double.parse(map['height'].toString()),
         phonenumber: map['phoneNumber'],
         weight: double.parse(map['weight'].toString()),
-        fullName: fullName);
+        fullName: map['fullName']);
   }
 }

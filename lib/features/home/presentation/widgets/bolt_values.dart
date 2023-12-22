@@ -28,7 +28,7 @@ class _BOLTValuesState extends State<BOLTValues> {
       children: [
         CommonCard(
           headingPadding: 20,
-          headingTitle: "Letzte BOLT Werten",
+          headingTitle: "Letzter BOLT-Wert.",
           headingTitleStyle: Theme.of(context)
               .textTheme
               .bodySmall!
@@ -59,7 +59,7 @@ class _BOLTValuesState extends State<BOLTValues> {
                                 final boltId = boltValues[index].id;
                                 return Dismissible(
                                   key: Key(boltId!),
-                                  direction: DismissDirection.startToEnd,
+                                  direction: DismissDirection.endToStart,
                                   confirmDismiss: (direction) async {
                                     final bool res = await showDeleteBoltDialog(
                                         context, boltId, duration);
@@ -104,7 +104,7 @@ class _BOLTValuesState extends State<BOLTValues> {
                                             color: Colors.red[400]),
                                         onTap: () {
                                           showDeleteBoltDialog(
-                                              context, boltId!, duration);
+                                              context, boltId, duration);
                                         },
                                       )
                                     ],

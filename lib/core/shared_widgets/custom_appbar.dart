@@ -1,4 +1,3 @@
-import 'package:atemkraft/core/shared_widgets/notification_icon.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

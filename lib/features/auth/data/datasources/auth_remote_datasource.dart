@@ -97,29 +97,33 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        CollectionReference profileCollection =
-            firestoreInstance.collection('userProfile');
+        await firestoreInstance.runTransaction((transaction) async {
+          await user.updateDisplayName(payload.fullName);
+          CollectionReference profileCollection =
+              firestoreInstance.collection('userProfile');
 
-        QuerySnapshot querySnapshot = await profileCollection
-            .where('uId', isEqualTo: user.uid)
-            .limit(1)
-            .get();
+          QuerySnapshot querySnapshot = await profileCollection
+              .where('uId', isEqualTo: user.uid)
+              .limit(1)
+              .get();
 
-        if (querySnapshot.docs.isNotEmpty) {
-          DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-          await profileCollection.doc(documentSnapshot.id).update({
-            'name': payload.fullName,
-            'dateOfBirth': payload.dateOfBirth != null
-                ? Timestamp.fromDate(payload.dateOfBirth!)
-                : null,
-            'height': payload.size,
-            'phoneNumber': payload.phonenumber,
-            'weight': payload.weight
-          });
-          return true;
-        } else {
-          throw Exception('profile not found!');
-        }
+          if (querySnapshot.docs.isNotEmpty) {
+            DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+            await profileCollection.doc(documentSnapshot.id).update({
+              'fullName': payload.fullName,
+              'dateOfBirth': payload.dateOfBirth != null
+                  ? Timestamp.fromDate(payload.dateOfBirth!)
+                  : null,
+              'height': payload.size,
+              'phoneNumber': payload.phonenumber,
+              'weight': payload.weight
+            });
+          } else {
+            throw Exception('profile not found!');
+          }
+        });
+
+        return true;
       } else {
         throw Exception('User not signed in.');
       }

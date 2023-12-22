@@ -1,3 +1,5 @@
+import 'package:atemkraft/features/admin/domain/usecases/delete_plan.dart';
+import 'package:atemkraft/features/admin/domain/usecases/update_plan.dart';
 import 'package:atemkraft/features/admin/presentation/bloc/user_plans_bloc/plan_bloc.dart';
 import 'package:atemkraft/features/auth/domain/usecases/edit_profile_usecase.dart';
 import 'package:atemkraft/features/auth/domain/usecases/get_profile_usecase.dart';
@@ -34,7 +36,7 @@ Future<void> injectionInit() async {
   //! Bloc
   getIt.registerFactory(() => AuthBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => AdminBloc(getIt()));
-  getIt.registerFactory(() => PlanBloc(getIt(), getIt()));
+  getIt.registerFactory(() => PlanBloc(getIt(), getIt(), getIt(), getIt()));
   getIt.registerFactory(() => BoltBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => ProfileBloc(getIt(), getIt()));
 
@@ -47,14 +49,19 @@ Future<void> injectionInit() async {
   getIt.registerLazySingleton(() => FetchUserPlansUseCase(getIt()));
   getIt.registerLazySingleton(() => CreatePlanUseCase(getIt()));
   getIt.registerLazySingleton(() => AddBoltUsecase(getIt()));
-  getIt.registerLazySingleton(() => GetBoltsUsecase(getIt()));
   getIt.registerLazySingleton(() => RemoveBoltUsecase(getIt()));
   getIt.registerLazySingleton(() => EditProfileUseCase(getIt()));
   getIt.registerLazySingleton(() => GetProfileUseCase(getIt()));
-
+  getIt.registerLazySingleton(() => GetBoltsUsecase(getIt()));
+  getIt.registerLazySingleton(() => DeletePlanUseCase(getIt()));
+  getIt.registerLazySingleton(() => UpdatePlanUseCase(getIt()));
   //! Repository
   getIt.registerLazySingleton<AuthRepository>(() =>
       AuthRepositoryImpl(networkInfo: getIt(), authRemoteDataSource: getIt()));
+  getIt.registerLazySingleton<BoltRepository>(() => BoltRepositoryImpl(
+        networkInfo: getIt(),
+        boltRemoteDataSource: getIt(),
+      ));
   getIt.registerLazySingleton<AdminRepository>(() => AdminRepositoryImpl(
       networkInfo: getIt(), adminRemoteDataSource: getIt()));
   getIt.registerLazySingleton<BoltRepository>(() => BoltRepositoryImpl(
