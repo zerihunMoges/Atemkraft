@@ -131,9 +131,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavBar(
-        activeIndex: 0,
-      ),
+      // bottomNavigationBar: const CustomBottomNavBar(
+      //   activeIndex: 0,
+      // ),
     );
   }
 }
