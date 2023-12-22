@@ -31,25 +31,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkFirstTime() async {
     _isFirstTime = (await _storage.read(key: 'isFirstTime')) == null;
 
-    if (_isFirstTime) {
-      Future.delayed(const Duration(seconds: 3), () async {
-        await _storage.write(key: 'isFirstTime', value: 'false');
-        _router.go(AppRoutes.onboarding);
-      });
-    } else {
-      Future.delayed(const Duration(seconds: 3), () async {
-        if (FirebaseAuth.instance.currentUser != null) {
-          final isAdmin = await isUserAdmin();
-          if (!isAdmin) {
-            _router.go(AppRoutes.home);
-          } else {
-            _router.go(AppRoutes.adminHome);
-          }
+    Future.delayed(const Duration(seconds: 3), () async {
+      if (FirebaseAuth.instance.currentUser != null) {
+        final isAdmin = await isUserAdmin();
+        if (!isAdmin) {
+          _router.go(AppRoutes.home);
         } else {
-          _router.go(AppRoutes.login);
+          _router.go(AppRoutes.adminHome);
         }
-      });
-    }
+      } else {
+        _router.go(AppRoutes.login);
+      }
+    });
   }
 
   @override

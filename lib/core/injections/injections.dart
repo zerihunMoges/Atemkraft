@@ -64,10 +64,6 @@ Future<void> injectionInit() async {
       ));
   getIt.registerLazySingleton<AdminRepository>(() => AdminRepositoryImpl(
       networkInfo: getIt(), adminRemoteDataSource: getIt()));
-  getIt.registerLazySingleton<BoltRepository>(() => BoltRepositoryImpl(
-        networkInfo: getIt(),
-        boltRemoteDataSource: getIt(),
-      ));
 
   //! Data Source
   getIt.registerLazySingleton<AuthRemoteDataSource>(
