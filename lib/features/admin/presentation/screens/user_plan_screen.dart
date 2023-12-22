@@ -111,6 +111,7 @@ class _UserPlansScreenState extends State<UserPlansScreen> {
                                           //               .completed));
                                         },
                                         activeColor: Colors.green[200],
+
                                         side: BorderSide(
                                             color: primaryLightColor),
                                       ),
